@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/main/java/v2/mvc/spring/controller/BlogController.java=UTF-8
+encoding//src/main/java/v2/mvc/spring/mapper/BlogMapper.java=UTF-8
+encoding//src/main/java/v2/mvc/spring/service/BlogService.java=UTF-8
+encoding//src/main/java/v2/mvc/spring/service/impl/BlogServiceImpl.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/blog/read.jsp=UTF-8
+encoding/<project>=UTF-8
