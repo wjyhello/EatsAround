@@ -17,6 +17,17 @@
     <property name="username" value="SPRING_BLG_USR" />
     <property name="password" value="1234" />
 </bean>
+
+<!--	 DB Context: EATS_AROUND -->
+<!--<bean id="dataSourceEatsAround"-->
+<!--    class="org.apache.commons.dbcp2.BasicDataSource"-->
+<!--    destroy-method="close">-->
+<!--    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />-->
+<!--    <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />-->
+<!--    <property name="username" value="EATS_AROUND" />-->
+<!--    <property name="password" value="1234" />-->
+<!--</bean>-->
+
 <bean id="sqlSessionFactory"
     class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="dataSource" />
@@ -27,5 +38,19 @@
     class="org.mybatis.spring.SqlSessionTemplate">
     <constructor-arg index="0" ref="sqlSessionFactory" />
 </bean>	
-<mybatis-spring:scan base-package="v2.mvc.spring.mapper"/>
+
+<!--     SqlSessionFactory for EATS_AROUND -->
+<!--    <bean id="sqlSessionFactoryEatsAround"-->
+<!--          class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSourceEatsAround" />-->
+<!--        <property name="mapperLocations" value="classpath:/sqlmap/eats_around/**/*_SQL.xml" />-->
+<!--    </bean>-->
+
+<!--    <bean id="sqlSessionTemplateEatsAround"-->
+<!--          class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg index="0" ref="sqlSessionFactoryEatsAround" />-->
+<!--    </bean>-->
+    
+<mybatis-spring:scan base-package="v2.mvc.spring.mapper, com.eatsaround.mapper"/>
+
 </beans>

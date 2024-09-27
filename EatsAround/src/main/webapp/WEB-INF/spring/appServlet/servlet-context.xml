@@ -21,7 +21,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="v2.mvc.spring.*" />
+	<!-- v2.mvc.spring と com.eatsaround パッケージをスキャン -->
+	<context:component-scan base-package="v2.mvc.spring, com.eatsaround" />
 
 	
 </beans:beans>

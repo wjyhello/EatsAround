@@ -12,16 +12,12 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">KING</a>
+    <a class="navbar-brand" href="/">EatsAround</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
-      
-        <li class="nav-item">
-          <a class="nav-link" href="/ref">스프링 레퍼런스</a>
-        </li>
             
         <li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">oracle blog</a>
@@ -33,14 +29,21 @@
 			</ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/shop">shop</a>
-        </li>
       </ul>
-      <form class="d-flex">
+      <form class="d-flex ms-auto">
         <input class="form-control me-2" type="text" placeholder="Search">
         <button class="btn btn-primary" type="button">Search</button>
       </form>
+      
+      
+       <ul class="navbar-nav ms-auto"> 
+           <li class="nav-item">
+               <a class="nav-link" href="/login">login</a>
+           </li>
+           <li class="nav-item">
+               <a class="nav-link" href="/regist">회원가입</a>
+           </li>
+       </ul>
     </div>
   </div>
 </nav>
