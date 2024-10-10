@@ -13,7 +13,7 @@
 <body>
 	<div class="container my-5">
 		<h2 class="text-center">로그인</h2>
-		<form action="${pageContext.request.contextPath}/login/authenticate"
+		<form action="${pageContext.request.contextPath}/member/signin"
 			method="post" class="my-4">
 			<div class="mb-3">
 				<label for="username" class="form-label">USER ID:</label> <input

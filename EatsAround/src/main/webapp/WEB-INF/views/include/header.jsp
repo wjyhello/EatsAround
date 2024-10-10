@@ -20,12 +20,10 @@
       <ul class="navbar-nav me-auto">
             
         <li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">oracle blog</a>
+			<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">게시판</a>
 			<ul class="dropdown-menu">
 			<li><a class="dropdown-item" href="/list">list</a></li>
 			<li><a class="dropdown-item" href="/create">create</a></li>
-			<li><a class="dropdown-item" href="/edit">edit</a></li>
-			<li><a class="dropdown-item" href="/delete">delete</a></li>
 			</ul>
         </li>
 
@@ -38,10 +36,10 @@
       
        <ul class="navbar-nav ms-auto"> 
            <li class="nav-item">
-               <a class="nav-link" href="/login">login</a>
+               <a class="nav-link" href="/member/signin">signin</a>
            </li>
            <li class="nav-item">
-               <a class="nav-link" href="/regist">회원가입</a>
+               <a class="nav-link" href="/member/signup">회원가입</a>
            </li>
        </ul>
     </div>
