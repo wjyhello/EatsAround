@@ -11,13 +11,16 @@
   <div class="carousel-inner">
   
     <div class="carousel-item">
-      <img src="resources/images/cook1.jpg" alt="Ajillo" class="d-block w-100">
+      <img src="resources/images/aquarium1.jpg" alt="aquarium1" class="d-block w-100">
     </div>
     <div class="carousel-item active">
-      <img src="resources/images/cook2.jpg" alt="chicken" class="d-block w-100" >
+      <img src="resources/images/aquarium2.jpg" alt="aquarium2" class="d-block w-100" >
     </div>
     <div class="carousel-item">
-      <img src="resources/images/cook3.jpg" alt="hamburger" class="d-block w-100">
+      <img src="resources/images/aquarium3.jpg" alt="aquarium3" class="d-block w-100">
+    </div>
+    <div class="carousel-item">
+      <img src="resources/images/aquarium4.jpg" alt="aquarium4" class="d-block w-100">
     </div>
 
   </div>
