@@ -86,5 +86,14 @@ public class MemberController {
 		logger.info("post signin");
 		return "redirect:/";
 	}
+	
+	//로그아웃
+		@GetMapping(value="/member/signout")
+		public String signout(HttpSession session)throws Exception{
+			service.signout(session);
+			return "redirect:/";
+		}
+		
+		
 
 }
