@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<ul class="list-group">
-	<li class="list-group-item">
-		<a href="/admin/member/list">
-		회원리스트
-		</a>
-	</li>
-	<li class="list-group-item">
-		<a href="/admin/member/delete">
-		상품목록
-		</a>
-	</li>
+<jsp:include page="../include/header.jsp" flush="false" />
 
-</ul>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+	<div class="d-flex">
+		<div class="w-10">
+			<jsp:include page="include/adminPage.jsp" flush="false"/>
+		</div>
+		<div class="w-90">
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+<jsp:include page="../include/footer.jsp" flush="false" />

@@ -25,11 +25,13 @@ public class AdminController {
     @Inject
     private AdminService adminService;
 
-	//관리자 화면
-	@GetMapping(value="/index")
-	public void getIndex() throws Exception{
-		logger.info("get index");
-	}
+  //管理者画面
+    @GetMapping(value="/index")
+    public String getIndex(Model model) throws Exception {
+        logger.info("get index");
+        return "admin/index"; // JSPのパスを指定
+    }
+
     
     // メンバー退会処理（物理削除）
     @PostMapping(value = "/admin/delete")

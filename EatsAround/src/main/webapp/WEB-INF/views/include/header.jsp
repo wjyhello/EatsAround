@@ -20,62 +20,56 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="${path}/">EatsAround</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mynavbar">
-      <ul class="navbar-nav me-auto">
-         <c:if test="${member==null}">  
-        <li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">게시판</a>
-			<ul class="dropdown-menu">
-			 
-			<li><a class="dropdown-item" href="${path}/list">list</a></li>
-			<li><a class="dropdown-item" href="${path}/create">create</a></li>
-			</c:if>
-			</ul>
-        
-        
-		
-		<c:if test ="${member != null }">
-						<c:if test ="${member.verify == 9}">
-						<div class="d-flex align-items-center">
-						<li class="nav-item">
-							<a class="nav-link" href="${path}/admin/index">관리자 화면</a>
-						</li>
-						</c:if>
-						<li class="nav-item">
-						<span class="fw-bold">${member.userName}&nbsp;님 환영합니다</span>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="${path}/member/signout">logout</a>
-						</li>
-						</div>
-					</c:if>		
-		
-      </ul>
-      <form class="d-flex ms-auto">
-        <input class="form-control me-2" type="text" placeholder="Search">
-        <button class="btn btn-primary" type="button">Search</button>
-      </form>
-      
-      
-       <ul class="navbar-nav ms-auto"> 
-       <c:if test="${member==null}">
-           <li class="nav-item">
-               <a class="nav-link" href="${path}/member/signin">signin</a>
-           </li>
-           <li class="nav-item">
-               <a class="nav-link" href="${path}/member/signup">회원가입</a>
-           </li>
-           </c:if>
-       </ul>
-    </div>
-  </div>
-</nav>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="${path}/">EatsAround</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto align-items-center"> <!-- align-items-centerを追加 -->
+                <c:if test="${member == null}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">게시판</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="${path}/list">list</a></li>
+                            <li><a class="dropdown-item" href="${path}/create">create</a></li>
+                        </ul>
+                    </li>
+                </c:if>
 
+                <c:if test="${member != null}">
+                    <c:if test="${member.verify == 9}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="${path}/admin/index">관리자 화면</a>
+                        </li>
+                    </c:if>
+                    <li class="nav-item welcome-message">
+                        <span class="fw-bold">${member.userName}&nbsp;님 환영합니다</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${path}/member/signout">logout</a>
+                    </li>
+                </c:if>
+            </ul>
+
+            <form class="d-flex ms-auto search-bar">
+                <input class="form-control me-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="button">Search</button>
+            </form>
+
+            <ul class="navbar-nav ms-auto">
+                <c:if test="${member == null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${path}/member/signin">signin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${path}/member/signup">회원가입</a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="${path}/resources/js/js.js"></script>
@@ -83,18 +77,3 @@
 <script src="${path}/resources/js/util.js"></script>
 <script src="${path}/resources/js/register.js"></script>
 <script src="${path}/resources/js/member.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

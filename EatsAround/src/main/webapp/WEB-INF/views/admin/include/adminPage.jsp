@@ -8,7 +8,12 @@
 	</li>
 	<li class="list-group-item">
 		<a href="/admin/member/delete">
-		상품목록
+		회원탈퇴관리
+		</a>
+	</li>
+	<li class="list-group-item">
+		<a href="/admin/member/bbs">
+		게시판관리
 		</a>
 	</li>
 
