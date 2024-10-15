@@ -1,9 +1,11 @@
-//package com.eatsaround.service;
-//
-//public class AdminService {
-//	
-//	public void deleteMember(String userId) {
-//		adminMapper.deleteMember(userId);
-//	}
-//
-//}
+package com.eatsaround.service;
+
+import java.util.List;
+
+import com.eatsaround.vo.MemberVO;
+
+public interface AdminService {
+	void deleteMember(String userId) throws Exception;
+
+	List<MemberVO> memberList() throws Exception;
+}
