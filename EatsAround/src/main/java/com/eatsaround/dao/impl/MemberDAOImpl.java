@@ -19,7 +19,7 @@ public class MemberDAOImpl implements MemberDAO{
     private SqlSession sql;
     
     // mapper
-    private static String namespace = "com.spring.shop.mappers.memberMapper";
+    private static String namespace = "com.eatsaround.EaSql.EaMapper";
     
     @Override // 회원가입
     public void signup(MemberVO vo) throws Exception {

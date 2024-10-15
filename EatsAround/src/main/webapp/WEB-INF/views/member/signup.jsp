@@ -1,74 +1,183 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<jsp:include page="../include/header.jsp" flush="false" />
-<html>
-<head>
-    <title>회원가입 페이지</title>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-</head>
-<body>
-    <div class="container my-5">
-        <h2 class="text-center">회원가입</h2>
-        <form action="${pageContext.request.contextPath}/signup" method="post" class="my-4">
-            <div class="mb-3">
-                <label for="userid" class="form-label">USER ID:</label>
-                <input type="text" id="userid" name="userid" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="userpass" class="form-label">PASSWORD:</label>
-                <input type="password" id="userpass" name="userPass" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="userpassre" class="form-label">PASSWORD RECONFIRM:</label>
-                <input type="password" id="userpassre" name="userPassRe" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">USERNAME:</label>
-                <input type="text" id="username" name="username" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="userphone" class="form-label">USER PHONE:</label>
-                <input type="tel" id="userphone" name="userPhone" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="useremail" class="form-label">USER EMAIL:</label>
-                <input type="email" id="useremail" name="userEmail" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="usergender" class="form-label">USER GENDER:</label>
-                <select id="usergender" name="userGender" class="form-select" required>
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="useradd1" class="form-label">ADDRESS LINE 1:</label>
-                <input type="text" id="useradd1" name="userAdd1" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="useradd2" class="form-label">ADDRESS LINE 2:</label>
-                <input type="text" id="useradd2" name="userAdd2" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="useradd3" class="form-label">ADDRESS LINE 3:</label>
-                <input type="text" id="useradd3" name="userAdd3" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="verify" class="form-label">VERIFICATION CODE:</label>
-                <input type="text" id="verify" name="verify" class="form-control">
-            </div>
-            <div class="d-flex justify-content-end my-5">
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-primary">회원가입</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <jsp:include page="../include/footer.jsp" flush="false" />
-</body>
-</html>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@ include file='../include/header.jsp'%>
+<br><br>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		      <div class="card o-hidden border-0 shadow-lg my-5">
+	<div class="card-body p-0">
+	<div class="row">
+		<div class="col-lg-5 d-none d-lg-block bg-register-image">
+		</div>
+		<div class="col-lg-7">
+			<div class="p-5">
+				<div class="text-center">
+					<h1 class="h4 text-grey-900 mb-4">
+					Create an Account!
+					</h1>
+					<form class="user" method="post" class="was-validated" id="join_form">
+					
+					<div class="form-group row mb-3">
+						<div class="col-sm-12 mb-3 mb-sm-0">
+							<input type="text" 
+							class="form-control form-control-user userId"
+							placeholder="아이디"
+							name="userId"
+							maxlength="20"
+							id="userId"
+							/>
+						</div>
+
+						
+						<!-- add -->
+						<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
+						<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+						<span class="final_id_ck">아이디를 입력해 주세요</span>
+					
+					</div>
+					
+					<div class="form-group mb-3 d-flex">
+					<input 
+					type="password"
+					class="form-control form-control-user me-3 userPass"
+					placeholder="비밀번호"
+					name="userPass"
+					maxlength="20"
+					/>
+					<input 
+					type="password"
+					class="form-control form-control-user"
+					placeholder="비밀번호확인"
+					name="userPassRe"
+					maxlength="20"
+					/>
+					</div>
+					<span class="final_pw_ck">비밀번호를 입력해 주세요</span>
+					<span class="final_pwck_ck">비밀번호 확인을 입력해 주세요</span>
+					
+					<div class="form-group row mb-3">
+						<div class="col-sm-12 mb-3 mb-sm-0">
+							<input type="text" 
+							class="form-control form-control-user userName"
+							placeholder="이름"
+							name="userName"
+							maxlength="20"
+							/>
+						</div>
+					</div>
+					<span class="final_name_ck">이름을 입력해 주세요</span>
+					
+					<div class="form-group row mb-3">
+						<div class="col-sm-12 mb-3 mb-sm-0">
+						<!--  <div class="input-group">-->
+							<!--  <div class="mail_check_input_box w-75" id="mail_check_input_box_false">-->
+							    <input type="email" 
+								class="form-control form-control-user userEmail"
+								placeholder="이메일"
+								name="userEmail"
+								maxlength="40"
+								/>
+							<!--  </div>-->
+						
+							<!--  <a class="btn btn-outline-success mail_check_button w-25">인증번호 전송</a>-->
+						</div>
+							<!-- <span id="mail_check_input_box_warn"></span>
+						</div> -->
+					</div>
+					<span class="final_mail_ck">이메일을 입력해 주세요</span>
+					
+					<div class="form-group row mb-3">
+						<div class="col-sm-12 mb-3 mb-sm-0">
+							<input type="text" 
+							class="form-control form-control-user userPhone"
+							placeholder="휴대폰"
+							name="userPhone"
+							maxlength="20"
+							/>
+						</div>
+					</div>
+												</div>
+					
+			<div class="input-group my-4">
+				<label class="input-group-text">주소</label>
+				<input type="text" class="form-control address_input_1" name="userAdd1" readonly="readonly"/>
+				<a class="btn btn-outline-primary border-radius-top-right-sm" onclick="go_daum_address()">주소 찾기</a>
+			</div>
+			
+			<div class="input-group my-4">
+				<input type="text" class="form-control address_input_2 br20" name="userAdd2" readonly="readonly"/>
+			</div>
+			
+			<div class="input-group my-4">
+				<input type="text" class="form-control address_input_3 br20" name="userAdd3" readonly="readonly"/>
+			</div>
+
+					
+					
+					<div class="form-group mb-3">
+					
+					<div class="btn-group">
+						<label class="btn border-0 active">
+							<input type="radio" name="userGender" value="남자" autocomplete="off" checked>남자
+						</label>
+						<label class="btn border-0">
+							<input type="radio" name="userGender" value="여자" autocomplete="off">여자
+						</label>
+					</div>
+					
+					</div>
+					
+					<p class="mb-3">
+						<!--  <a href="login.jsp" class="btn btn-primary btn-user btn-block">
+							Register Account
+						</a>-->
+						<input type="submit" 
+						class="btn btn-primary btn-user btn-block signup_btn"
+						value="회원가입"
+						onclick="IDCheck"
+						/>
+					</p>
+					<p class="mb-3">
+						<a href="https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code" class="btn btn-kakao btn-user btn-block">
+							<i class="fab fa-google fa-fw w-100">
+							카카오톡으로 회원가입
+							</i>
+						</a>
+					</p>
+					<p class="mb-3">
+						<a href="login.jsp" class="btn btn-facebook btn-user btn-block">
+							<i class="fab fa-facebook fa-fw w-100">
+							Register with Facebook
+							</i>
+						</a>
+					</p>
+					
+					</form>
+					<hr>
+					<div class="text-center">
+						<a class="small" href="/user/forgot.jsp">
+						Forgot Password?
+						</a>
+					</div>
+					
+					<div class="text-center">
+						<a class="small" href="/user/login.jsp">
+						Already have an account? Login!
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+		</div>
+	</div>
+</div>
+
+	
+
+<%@ include file='../include/footer.jsp'%>

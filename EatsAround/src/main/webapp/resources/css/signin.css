@@ -31,3 +31,101 @@
 .btn-block { display: block; width: 100%; }
 
 a { text-decoration: none; }
+/*機能的に出なかったので追加しました。*/
+.bg-register-image{
+    background: url(https://source.unsplash.com/Mv9hjnEUHR4/600x800);
+    background-position: center;
+    background-size: cover;
+}
+.h-600{
+height:600px !important;	
+}
+
+a{text-decoration: none;}
+
+.w250{
+width:250px;overflow:hidden;
+}
+.wide-img{
+width:250px !important;  height:141px !important;
+}
+.eli{
+	width:190px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+.ci > input[type=text]{
+	width:130px !important; box-sizing:border-box; border:2px solid #ccc;
+	border-radius:4px; font-size:16px; background-color:white;
+	padding:12px 20px 12px 40px;
+	-webkit-transition:width 0.6s ease-in-out;
+	transition:width 0.6s ease-in-out;
+	background-image:url(../img/mag.png);
+	background-position:10px 10px;
+	background-repeat:no-repeat;
+}
+
+.ci > input[type=text]:focus{
+width:100% !important;
+}
+
+/*중복아이디 존재*/
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1{
+	color : green;
+	display : none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2{
+	color : red;
+	display : none;
+}
+
+/*mailcheck*/
+#mail_check_input_box_false{
+    background-color:#ebebe4;
+}
+ 
+#mail_check_input_box_true{
+    background-color:white;
+}
+
+.correct{
+    color : green;
+}
+.incorrect{
+    color : red;
+}
+
+
+/*border-radius*/
+.br20{
+border-radius:20px !important;	
+}
+.border-radius-top-right-sm{
+border-top-right-radius:20px;
+border-bottom-right-radius:20px;
+}
+
+/* 유효성 검사 문구 */
+ 
+.final_id_ck{
+    display: none;
+}
+.final_pw_ck{
+    display: none;
+}
+.final_pwck_ck{
+    display: none;
+}
+.final_name_ck{
+    display: none;
+}
+.final_mail_ck{
+    display: none;
+}
+.final_addr_ck{
+    display: none;
+}
