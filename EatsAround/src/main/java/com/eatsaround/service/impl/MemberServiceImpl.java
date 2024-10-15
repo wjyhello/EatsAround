@@ -1,6 +1,7 @@
 package com.eatsaround.service.impl;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberVO signin(MemberVO vo) throws Exception {
 		return dao.signin(vo);
+	}
+
+	@Override
+	public void signout(HttpSession session) throws Exception {
+		session.invalidate();
+		
 	}
 
 }
