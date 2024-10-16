@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eatsaround.service.AdminService;
 import com.eatsaround.vo.MemberVO;
@@ -32,23 +33,35 @@ public class AdminController {
         return "admin/index"; // JSPのパスを指定
     }
 
-    
-    // メンバー退会処理（物理削除）
-    @PostMapping(value = "/admin/delete")
-    public String deleteMember(@RequestParam("userId") String userId) throws Exception {
-        logger.info("post admin delete");
-        adminService.deleteMember(userId); // 退会処理を実行
-        return "redirect:/admin/list"; // 退会後にメンバーリストへリダイレクト
-    }
-
     // メンバーリストの表示
-    @GetMapping(value = "/admin/list")
+    @GetMapping(value = "/member/list")
     public String getMemberList(Model model) throws Exception {
         logger.info("get admin list");
 
         List<MemberVO> memberList = adminService.memberList(); // メンバーリスト取得
+        logger.info("Member list size: {}", memberList.size()); // デバッグログ追加
         model.addAttribute("memberList", memberList);
         
-        return "admin/memberList"; // メンバーリストの表示用JSPまたはHTMLテンプレート
+        return "admin/member/list"; // メンバーリストの表示用JSPファイルを指定
     }
+
+    
+    // メンバー退会処理（物理削除）
+    @PostMapping(value = "/member/delete")
+    public String deleteMember(@RequestParam("userId") String userId, RedirectAttributes redirectAttributes) throws Exception {
+        logger.info("post admin delete");
+
+        // adminユーザーの削除を防止
+        if ("admin".equals(userId)) {
+            logger.warn("관리자는 삭제 못합니다: {}", userId);
+            redirectAttributes.addFlashAttribute("alertMessage", "관리자는 삭제 못합니다.");
+            redirectAttributes.addFlashAttribute("alertAdminMessage", "관리자는 삭제 못합니다.");
+            return "redirect:/admin/member/list"; // メンバーリストへリダイレクト
+        }
+
+        adminService.deleteMember(userId); // 退会処理を実行
+        return "redirect:/admin/member/list"; // 退会後にメンバーリストへリダイレクト
+    }
+
+
 }

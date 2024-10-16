@@ -7,12 +7,12 @@
 		</a>
 	</li>
 	<li class="list-group-item">
-		<a href="/admin/member/delete">
+		<a href="../member/delete">
 		회원탈퇴관리
 		</a>
 	</li>
 	<li class="list-group-item">
-		<a href="/admin/member/bbs">
+		<a href="../member/bbs">
 		게시판관리
 		</a>
 	</li>

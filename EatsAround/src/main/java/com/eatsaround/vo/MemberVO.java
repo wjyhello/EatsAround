@@ -13,8 +13,8 @@ public class MemberVO {
     private String userAdd1;
     private String userAdd2;
     private String userAdd3;
-    private Date regDate;
     private int verify;
+    private Date regDate;
 
 	
 	//getter
@@ -28,8 +28,8 @@ public class MemberVO {
 	public String getUserAdd1() {return userAdd1;}
 	public String getUserAdd2() {return userAdd2;}
 	public String getUserAdd3() {return userAdd3;}
-	public Date getRegDate() {return regDate;}
 	public int getVerify() {return verify;}
+	public Date getRegDate() {return regDate;}
 
 	//setter
 	public void setUserId(String userId) {this.userId = userId;}
@@ -42,8 +42,8 @@ public class MemberVO {
 	public void setUserAdd1(String userAddr1) {this.userAdd1 = userAddr1;}
 	public void setUserAdd2(String userAddr2) {this.userAdd2 = userAddr2;}
 	public void setUserAdd3(String userAddr3) {this.userAdd3 = userAddr3;}
-	public void setRegDate(Date regDate) {this.regDate = regDate;}
 	public void setVerify(int verify) {this.verify = verify;}
+	public void setRegDate(Date regDate) {this.regDate = regDate;}
 	
 }
 

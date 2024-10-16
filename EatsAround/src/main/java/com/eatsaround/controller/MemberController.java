@@ -1,5 +1,7 @@
 package com.eatsaround.controller;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,7 +48,8 @@ public class MemberController {
 
         String inputPass = vo.getUserPass();
         String pass = passEncoder.encode(inputPass);
-        vo.setUserPass(pass);
+        vo.setUserPass(pass);        
+        vo.setRegDate(new Date());
 
         service.signup(vo);
         return "redirect:/";

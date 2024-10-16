@@ -23,15 +23,17 @@ public class AdminDAOImpl implements AdminDAO{
     // mapper
     private static String namespace = "com.eatsaround.EaSql.adminMapper";
 
-	@Override
-	public void deleteMember(String userId) throws Exception {
-
-	}
 
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
 
 		return sql.selectList(namespace + ".getMemberList");
 	}
+	
+	@Override
+	public void deleteMember(String userId) throws Exception {
+	    sql.delete(namespace + ".deleteMember", userId);
+	}
+
 
 }

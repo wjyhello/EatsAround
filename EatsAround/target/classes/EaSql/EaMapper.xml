@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eatsaround.EaSql.EaMapper">
-<insert id="signup">
-<![CDATA[
-insert into ea_member(userId, userPass, userPassRe, userName, userPhone, userEmail, userGender, userAdd1, userAdd2, userAdd3, verify)
-values(#{userId},#{userPass},#{userPassRe},#{userName},#{userPhone},#{userEmail},#{userGender},#{userAdd1},#{userAdd2},#{userAdd3},#{verify})
-]]>
-</insert>
-<select id="signin" resultType="com.eatsaround.vo.MemberVO">
-select userId, userName, userPass, userPassRe, userPhone, userEmail, userGender, userAdd1, userAdd2, userAdd3, verify
-from
-ea_member where userId = #{userId}
-</select>
+
+    <insert id="signup">
+        <![CDATA[
+        insert into ea_member(userId, userPass, userPassRe, userName, userPhone, userEmail, userGender, userAdd1, userAdd2, userAdd3, verify, regDate)
+        values(#{userId}, #{userPass}, #{userPassRe}, #{userName}, #{userPhone}, #{userEmail}, #{userGender}, #{userAdd1}, #{userAdd2}, #{userAdd3}, #{verify}, sysdate)
+        ]]>
+    </insert>
+
+    <select id="signin" resultType="com.eatsaround.vo.MemberVO">
+        <![CDATA[
+        select userId, userName, userPass, userPassRe, userPhone, userEmail, userGender, userAdd1, userAdd2, userAdd3, verify, regDate
+        from ea_member where userId = #{userId}
+        ]]>
+    </select>
 </mapper>
