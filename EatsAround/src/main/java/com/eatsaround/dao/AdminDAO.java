@@ -1,5 +1,13 @@
 package com.eatsaround.dao;
 
-public class AdminDAO {
+import java.util.List;
+
+import com.eatsaround.vo.MemberVO;
+
+public interface AdminDAO {
+
+	public void deleteMember(String userId) throws Exception;
+
+	public List<MemberVO> getMemberList() throws Exception;
 
 }
