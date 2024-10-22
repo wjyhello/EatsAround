@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eatsaround.EaSql.adminMapper">
 
+	<!-- 会員リストを取得 -->
 	<select id="getMemberList"
 		resultType="com.eatsaround.vo.MemberVO">
 		SELECT userId, userName, userEmail, userPhone, regDate
 		FROM ea_member
 	</select>
 
+	<!-- 会員数を取得 -->
+    <select id="getMemberCount" resultType="int">
+        SELECT COUNT(*) FROM ea_member
+    </select>
 
+	<!-- 会員削除 -->
 	<delete id="deleteMember">
         <![CDATA[
         DELETE FROM ea_member WHERE userId = #{userId}

@@ -31,7 +31,8 @@ public class AdminController {
     public String getIndex(Model model) throws Exception {
         logger.info("get index");
         return "admin/index"; // JSPのパスを指定
-    }
+    } 
+    
 
     // メンバーリストの表示
     @GetMapping(value = "/member/list")
@@ -63,5 +64,12 @@ public class AdminController {
         return "redirect:/admin/member/list"; // 退会後にメンバーリストへリダイレクト
     }
 
+    
+    //管理者掲示板ページ
+    @GetMapping(value="/member/bbs")
+    public String getBbs(Model model) throws Exception {
+        logger.info("get bbs");
+        return "admin/member/bbs"; // JSPのパスを指定
+    }
 
 }
