@@ -25,14 +25,25 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
+       <div>
+       <ul class="navbar-nav me-auto aligin-items-center">
+       <c:if test="${member==null}">
+       <li class="nav-item">
+       		<a class="nav-link" href="${path}/list">게시판 목록</a>
+       	</li>
+       </ul>
+       </c:if>
+       </div>
+        
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto align-items-center"> <!-- align-items-centerを追加 -->
-                <c:if test="${member == null}">
+                <c:if test="${member != null}">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">게시판</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="${path}/list">list</a></li>
-                            <li><a class="dropdown-item" href="${path}/create">create</a></li>
+                            <li><a class="dropdown-item" href="${path}/list">게시판 목록</a></li>
+                            <li><a class="dropdown-item" href="${path}/create">게시물 작성</a></li>
                         </ul>
                     </li>
                 </c:if>
