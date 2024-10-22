@@ -18,11 +18,9 @@
             <label class="form-label">컨텐츠 제목 :</label>
             <input type='text' name='title' class="form-control" value="${blogCont.TITLE}" />
         </p>
+        
         <p>
-            본문
-        </p>
-        <p>
-            <textarea rows="10" name="contBdy" class="form-control">${blogCont.CONT_BDY}</textarea>
+           <textarea rows="10" name="contBdy" class="form-control">본문: ${blogCont.CONT_BDY}</textarea>
         </p>
         <p>입력일 : <fmt:formatDate value="${blogCont.INSERT_DT}" pattern="yyyy.MM.dd HH:mm:ss" /></p>
         <div class="d-flex justify-content-end my-5">
