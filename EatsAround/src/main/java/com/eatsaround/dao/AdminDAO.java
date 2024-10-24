@@ -10,4 +10,8 @@ public interface AdminDAO {
 
 	public List<MemberVO> getMemberList() throws Exception;
 
+	public int getMemberCount() throws Exception;
+	
+	int getBoardCount() throws Exception;
+
 }

@@ -1,80 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/include/header.jsp" flush="false" />
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="../include/header.jsp" flush="false"/>
 
-<div class="container-fluid">
-	<div class="row">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
 
-		<div class="col-md-2">
-			<div class="py-3">
-				<h4 class="text-center">관리자 메뉴</h4>
-				<jsp:include page="/WEB-INF/views/admin/include/adminPage.jsp"
-					flush="false" />
-			</div>
-		</div>
+            <h2 class="my-4">掲示板</h2>
 
+            <!-- 検索フォーム -->
+            <form class="my-5" method="get" action="${pageContext.request.contextPath}/list">
+                <div class="input-group">
+                    <input type="text" 
+                           class="form-control" 
+                           placeholder="検索" 
+                           name="search" 
+                           value="${blogListRequestVO.search}"/>
+                    <input 
+                           type="submit" 
+                           name="search_button" 
+                           value="検索"
+                           class="btn btn-outline-success"/>
+                </div>
+            </form>
 
-		<div class="col-md-10">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 my-4">
-						<c:if test="${not empty alertMessage}">
-							<script>
-								alert('${alertMessage}');
-							</script>
-						</c:if>
+            <c:if test="${not empty blogListResponseVOList}">
+                <table class="table table-hover">
+                    <colgroup>
+                        <col style="width:5%"/>
+                        <col style="width:70%"/>
+                        <col style="width:15%"/>
+                        <col style="width:10%"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="text-center">番号</th>
+                            <th class="text-center">タイトル</th>
+                            <th class="text-center">投稿日</th>
+                            <th class="text-center">編集</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="blogListResponseVO" items="${blogListResponseVOList}">
+                            <tr>
+                                <td>${blogListResponseVO.blgContSeq}</td>
+                                <td><a href="${pageContext.request.contextPath}/read/${blogListResponseVO.blgContSeq}" class="a-link">${blogListResponseVO.title}</a></td>
+                                <td>${blogListResponseVO.insertDtFormat}</td>
+                                <td class="text-center">
+                                    <a href="${pageContext.request.contextPath}/edit/${blogListResponseVO.blgContSeq}" class="a-link">編集</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
 
-						<c:if test="${not empty alertAdminMessage}">
-							<div class="alert alert-danger" role="alert">
-								${alertAdminMessage}</div>
-						</c:if>
+                <div class="d-flex justify-content-end my-5">
+                    <div class="btn-group">
+                        <a href="${pageContext.request.contextPath}/create" class="btn btn-outline-primary px-4">新規作成</a>
+                    </div>
+                </div>
+            </c:if>
 
+            <c:if test="${empty blogListResponseVOList}">
+                <strong>결과 없음</strong>
+            </c:if>
 
-						<h2 class="mb-0">게시판 관리</h2>
-
-						<div class="card-body">
-							<table class="table table-striped table-hover">
-								<thead class="thead-dark">
-									<tr>
-										<th>ID</th>
-										<th>NAME</th>
-										<th>E-mail</th>
-										<th>Phone</th>
-										<th>regDate</th>
-										<th>DELETE</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="member" items="${memberList}">
-										<tr>
-											<td>${member.userId}</td>
-											<td>${member.userName}</td>
-											<td>${member.userEmail}</td>
-											<td>${member.userPhone}</td>
-											<td><fmt:formatDate value="${member.regDate}"
-													pattern="yyyy-MM-dd" /></td>
-											<td>
-												<form action="${path}/admin/member/delete" method="post"
-													onsubmit="return confirm('本当に削除しますか？');">
-													<input type="hidden" name="userId" value="${member.userId}" />
-													<button type="submit" class="btn btn-danger btn-sm">
-														<i class="fas fa-trash-alt"></i> 삭제
-													</button>
-												</form>
-											</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/include/footer.jsp" flush="false" />
+<jsp:include page="../include/footer.jsp" flush="false"/>

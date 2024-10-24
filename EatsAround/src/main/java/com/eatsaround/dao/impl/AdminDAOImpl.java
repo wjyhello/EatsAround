@@ -26,13 +26,22 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
-
 		return sql.selectList(namespace + ".getMemberList");
 	}
 	
 	@Override
 	public void deleteMember(String userId) throws Exception {
 	    sql.delete(namespace + ".deleteMember", userId);
+	}
+
+	@Override
+	public int getMemberCount() throws Exception {
+		return sql.selectOne(namespace + ".getMemberCount");
+	}
+
+	@Override
+	public int getBoardCount() throws Exception {
+		return sql.selectOne(namespace + ".getBoardCount");
 	}
 
 

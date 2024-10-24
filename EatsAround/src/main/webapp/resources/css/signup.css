@@ -26,6 +26,7 @@
 .small { font-size: 80%; font-weight: 400; }
 .btn-user { font-size: .8rem; border-radius: 10rem; padding: .75rem 1rem; }
 .btn-google { color: #fff; background-color: #ea4335; border-color: #fff; }
+.btn-facebook { color: #fff; background-color: #3b5998; border-color: #fff; }
 .btn-kakaotalk { color: #fff; background-color: #ffe500; border-color: #fff; }
 .btn-block { display: block; width: 100%; }
 

@@ -8,4 +8,8 @@ public interface AdminService {
 	void deleteMember(String userId) throws Exception;
 
 	List<MemberVO> memberList() throws Exception;
+	
+	int getMemberCount() throws Exception;
+	
+	int getBoardCount() throws Exception;
 }

@@ -28,4 +28,15 @@ public class AdminServiceImpl implements AdminService {
 		return dao.getMemberList();
 	}
 
+	//会員数の取得
+	@Override
+	public int getMemberCount() throws Exception {
+		return dao.getMemberCount();
+	}
+
+	@Override
+	public int getBoardCount() throws Exception {
+		return dao.getBoardCount();
+	}
+
 }

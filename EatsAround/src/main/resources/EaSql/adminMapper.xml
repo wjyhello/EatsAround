@@ -6,13 +6,14 @@
 	<select id="getMemberList"
 		resultType="com.eatsaround.vo.MemberVO">
 		SELECT userId, userName, userEmail, userPhone, regDate
-		FROM ea_member
+		FROM
+		ea_member
 	</select>
 
 	<!-- 会員数を取得 -->
-    <select id="getMemberCount" resultType="int">
-        SELECT COUNT(*) FROM ea_member
-    </select>
+	<select id="getMemberCount" resultType="int">
+		SELECT COUNT(*) FROM ea_member
+	</select>
 
 	<!-- 会員削除 -->
 	<delete id="deleteMember">
@@ -20,5 +21,10 @@
         DELETE FROM ea_member WHERE userId = #{userId}
         ]]>
 	</delete>
+
+	<!-- 掲示板数を取得 -->
+	<select id="getBoardCount" resultType="int">
+		SELECT COUNT(*) FROM board
+	</select>
 
 </mapper>

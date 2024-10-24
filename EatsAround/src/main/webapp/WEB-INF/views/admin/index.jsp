@@ -28,7 +28,7 @@
                                 <div class="card text-white bg-primary mb-3">
                                     <div class="card-body">
                                         <h5 class="card-title">회원 수</h5>
-                                        <p class="card-text">현재 등록된 회원 수: xxx명</p>
+                                        <p class="card-text">현재 등록된 회원 수: ${memberCount}명</p>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +36,8 @@
                                 <div class="card text-white bg-success mb-3">
                                     <div class="card-body">
                                         <h5 class="card-title">게시판 수</h5>
-                                        <p class="card-text">등록된 게시판 수: xxx개</p>
+                                        <p class="card-text">등록된 게시판 수: ${boardCount}개</p>
+                                        
                                     </div>
                                 </div>
                             </div>

@@ -30,7 +30,11 @@ public class AdminController {
     @GetMapping(value="/index")
     public String getIndex(Model model) throws Exception {
         logger.info("get index");
-        return "admin/index"; // JSPのパスを指定
+        
+        //会員数を取得
+        int memberCount = adminService.getMemberCount();
+        model.addAttribute("memberCount", memberCount);
+        return "admin/index"; 
     } 
     
 
@@ -43,7 +47,7 @@ public class AdminController {
         logger.info("Member list size: {}", memberList.size()); // デバッグログ追加
         model.addAttribute("memberList", memberList);
         
-        return "admin/member/list"; // メンバーリストの表示用JSPファイルを指定
+        return "admin/member/list"; 
     }
 
     
@@ -63,13 +67,17 @@ public class AdminController {
         adminService.deleteMember(userId); // 退会処理を実行
         return "redirect:/admin/member/list"; // 退会後にメンバーリストへリダイレクト
     }
-
     
     //管理者掲示板ページ
     @GetMapping(value="/member/bbs")
     public String getBbs(Model model) throws Exception {
         logger.info("get bbs");
-        return "admin/member/bbs"; // JSPのパスを指定
+        
+      //掲示板の数を取得
+        int boardCount = adminService.getBoardCount();
+        model.addAttribute("boardCount", boardCount);
+        
+        return "admin/member/bbs"; 
     }
 
 }
