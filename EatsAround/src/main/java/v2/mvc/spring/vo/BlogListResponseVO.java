@@ -9,16 +9,17 @@ public class BlogListResponseVO {
 	private String title;
 	private String contBdy;
 	private LocalDateTime insertDt;
+	private String userId;
 	
+	
+	public String getUserId() {return userId;}
 	public int getBlgContSeq() {return blgContSeq;}
 	public String getTitle() {return title;}
 	public String getContBdy() {return contBdy;}
 	public LocalDateTime getInsertDt() {return insertDt;}
 	//add
-	public String getInsertDtFormat(){
-		return this.insertDt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-	}
-	
+	public String getInsertDtFormat(){return this.insertDt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));}
+	public void setUserId(String userId) {this.userId = userId;}
 	public void setBlgContSeq(int blgContSeq) {this.blgContSeq = blgContSeq;}
 	public void setTitle(String title) {this.title = title;}
 	public void setContBdy(String contBdy) {this.contBdy = contBdy;}

@@ -45,6 +45,8 @@
         <property name="dataSource" ref="dataSourceEatsAround" />
         <property name="mapperLocations" value="classpath:/EaSql/**/*Mapper.xml" />
     </bean>
+    
+    
 
     <bean id="sqlSessionTemplate"
           class="org.mybatis.spring.SqlSessionTemplate">

@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,16 +72,32 @@ public class BlogController {
 
 	
 	@GetMapping(value = "/create")
-	public String getCreate() {
+	public String getCreate(HttpServletRequest req) {
+		
 		return "blog/create";
 	}
 	
-	@PostMapping(value="/create")
-	public String postCreate(@RequestParam Map<String, Object> map) {
-		int blogContSeq = this.blogService.create(map);
-		return "redirect:/read/" + String.valueOf(blogContSeq);
-		
+//	@PostMapping(value="/create")
+//	public String postCreate(@RequestParam Map<String, Object> map) {
+//		int blogContSeq = this.blogService.create(map);
+//		return "redirect:/read/" + String.valueOf(blogContSeq);
+//		
+//	}
+//	
+	
+	@PostMapping(value = "/create")
+	public String postCreate(HttpServletRequest req, @RequestParam Map<String, Object> map) {
+	    HttpSession session = req.getSession();
+	    String userId = (String) session.getAttribute("id"); // 세션에서 userId 가져오기
+	    
+	    if (userId == null) {
+	        throw new IllegalArgumentException("로그인이 필요합니다."); // 로그인이 필요할 경우 예외 처리
+	    }
+	    map.put("userId", userId); // Map에 userId 추가
+	    int blogContSeq = this.blogService.create(map); // 서비스 호출
+	    return "redirect:/read/" + String.valueOf(blogContSeq);
 	}
+	 
 	
 	@GetMapping(value="/read/{blogContSeq}")// => /read/1
 	public String getRead(@PathVariable("blogContSeq") int blogContSeq, Model model) {

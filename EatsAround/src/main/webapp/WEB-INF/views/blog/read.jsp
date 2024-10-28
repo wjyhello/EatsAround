@@ -24,7 +24,10 @@
                     <th>제목 :</th><td>${blogCont.TITLE}</td>
                 </tr>
                 <tr>
-                    <th></th><td>${fn:replace(blogCont.CONT_BDY, CRLF, '<br/>') }</td>
+                <th>글쓴이 : </th><td>${blogCont.USERID}</td>
+                </tr>
+                <tr>
+                    <th>본문 내용:</th><td>${fn:replace(blogCont.CONT_BDY, CRLF, '<br/>') }</td>
                 </tr>
                 <tr>
                     <th>입력일</th>

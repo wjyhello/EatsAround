@@ -11,6 +11,7 @@ DELETE FROM TB_BLG_CONT WHERE BLG_CONT_SEQ = #{BLG_CONT_SEQ}
 <result column="TITLE" property="title" jdbcType="NVARCHAR" javaType="String"/>
 <result column="CONT_BDY" property="contBdy" jdbcType="NVARCHAR" javaType="String"/>
 <result column="INSERT_DT" property="insertDt" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+<result column="USERID" property="userId" jdbcType="NVARCHAR" javaType="String"/>
 </resultMap>
 <select id="selectList" parameterType="v2.mvc.spring.vo.BlogListRequestVO" resultMap="selectListResultMap">
 <![CDATA[
@@ -18,7 +19,8 @@ SELECT
 BLG_CONT_SEQ,
 TITLE,
 TO_CHAR(CONT_BDY) as CONT_BDY,
-INSERT_DT
+INSERT_DT,
+USERID
 from
 TB_BLG_CONT
 WHERE 1 = 1
