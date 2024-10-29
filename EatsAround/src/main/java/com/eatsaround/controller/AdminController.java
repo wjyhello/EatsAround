@@ -1,7 +1,6 @@
 package com.eatsaround.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -18,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eatsaround.service.ActivityLogService;
 import com.eatsaround.service.AdminService;
+import com.eatsaround.vo.ActivityLogVO;
 import com.eatsaround.vo.MemberVO;
 
 import v2.mvc.spring.service.BlogService;
@@ -54,7 +54,7 @@ public class AdminController {
         model.addAttribute("blogCount", blogCount);
         
      // ログイン履歴を取得
-        List<Map<String, Object>> loginHistory = activityLogService.getLoginHistory();
+        List<ActivityLogVO> loginHistory = activityLogService.getLoginHistory();
         model.addAttribute("loginHistory", loginHistory);
         
         return "admin/index";

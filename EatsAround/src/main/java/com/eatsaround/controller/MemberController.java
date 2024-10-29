@@ -47,7 +47,6 @@ public class MemberController {
         logger.info("get signup");
     }
 
-    @PostMapping(value = "/member/signup")
     public String postSignup(MemberVO vo) throws Exception {
         logger.info("post signup");
 
@@ -59,7 +58,7 @@ public class MemberController {
         service.signup(vo);
         
         // アクティビティログに登録記録を追加
-        activityLogService.logActivityVO(vo.getUserId(), "SIGNUP", new Timestamp(System.currentTimeMillis()));
+        activityLogService.logActivityVO(vo.getUserId(), "SIGNUP", new Timestamp(System.currentTimeMillis())); // 修正
         
         return "redirect:/";
     }
@@ -70,7 +69,7 @@ public class MemberController {
         logger.info("get signin");
     }
 
-    // ログイン POST
+ // ログイン POST
     @PostMapping(value = "/member/signin")
     public String postSignin(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
         MemberVO login = service.signin(vo);
@@ -81,7 +80,7 @@ public class MemberController {
             logger.info("post signin: User {} logged in", login.getUserId());
             
             // アクティビティログにログインを記録
-            activityLogService.logActivityVO(login.getUserId(), "LOGIN", new Timestamp(System.currentTimeMillis()));
+            activityLogService.logActivityVO(login.getUserId(), "LOGIN", new Timestamp(System.currentTimeMillis())); // 修正
 
             return "redirect:/"; // 一般ユーザーの場合のリダイレクト
         } else {
@@ -99,7 +98,7 @@ public class MemberController {
 
         if (member != null) {
             // アクティビティログにログアウトを記録
-            activityLogService.logActivityVO(member.getUserId(), "LOGOUT", new Timestamp(System.currentTimeMillis()));
+            activityLogService.logActivityVO(member.getUserId(), "LOGOUT", new Timestamp(System.currentTimeMillis())); // 修正
         }
 
         service.signout(session);

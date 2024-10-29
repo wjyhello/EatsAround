@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eatsaround.EaSql.activityLogMapper">
+
+    <resultMap id="ActivityLogResultMap" type="com.eatsaround.vo.ActivityLogVO">
+        <result property="userId" column="USERID"/>
+        <result property="activityType" column="ACTIVITY_TYPE"/>
+        <result property="activityTime" column="ACTIVITY_TIME"/>
+    </resultMap>
+
+    <select id="getLoginHistory" resultMap="ActivityLogResultMap">
+        SELECT USERID, ACTIVITY_TYPE, ACTIVITY_TIME
+        FROM ACTIVITY_LOG
+        WHERE ACTIVITY_TYPE = 'LOGIN'
+        ORDER BY ACTIVITY_TIME DESC
+    </select>
+    
+    <insert id="logActivityVO" parameterType="com.eatsaround.vo.ActivityLogVO">
+        INSERT INTO ACTIVITY_LOG (USERID, ACTIVITY_TYPE, ACTIVITY_TIME)
+        VALUES (#{userId}, #{activityType}, #{activityTime})
+    </insert>
+
+</mapper>
