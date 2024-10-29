@@ -53,9 +53,13 @@ public class AdminController {
         int blogCount = adminService.getBlogCount();
         model.addAttribute("blogCount", blogCount);
         
-     // ログイン履歴を取得
+        //ログイン履歴を取得
         List<ActivityLogVO> loginHistory = activityLogService.getLoginHistory();
         model.addAttribute("loginHistory", loginHistory);
+        
+        // ログアウト履歴を取得
+        List<ActivityLogVO> logoutHistory = activityLogService.getLogoutHistory();
+        model.addAttribute("logoutHistory", logoutHistory);
         
         return "admin/index";
     }

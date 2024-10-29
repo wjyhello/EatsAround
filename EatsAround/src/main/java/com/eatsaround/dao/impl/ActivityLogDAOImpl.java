@@ -25,8 +25,14 @@ public class ActivityLogDAOImpl implements ActivityLogDAO {
     }
 
     @Override
+    public List<ActivityLogVO> getLogoutHistory() throws Exception {
+    	return sql.selectList(namespace + ".getLogoutHistory");
+    }
+
+    @Override
     public void logActivityVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
         // INSERT SQLを呼び出して活動を記録する
         sql.insert(namespace + ".logActivityVO", new ActivityLogVO(userId, activityType, activityTime));
     }
+
 }

@@ -7,5 +7,6 @@ import com.eatsaround.vo.ActivityLogVO;
 
 public interface ActivityLogService {
     List<ActivityLogVO> getLoginHistory() throws Exception;
+    List<ActivityLogVO> getLogoutHistory() throws Exception;
 	void logActivityVO(String userId, String activityType, Timestamp activityTime) throws Exception;
 }

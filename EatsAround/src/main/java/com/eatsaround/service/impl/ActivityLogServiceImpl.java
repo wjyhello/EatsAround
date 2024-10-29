@@ -23,7 +23,13 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     @Override
+    public List<ActivityLogVO> getLogoutHistory() throws Exception {
+    	return dao.getLogoutHistory();
+    }
+
+    @Override
     public void logActivityVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
         dao.logActivityVO(userId, activityType, activityTime);
     }
+
 }
