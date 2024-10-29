@@ -1,6 +1,7 @@
 package com.eatsaround.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -35,8 +36,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int getBoardCount() throws Exception {
-		return dao.getBoardCount();
+	public int getBlogCount() throws Exception {
+		return dao.getBlogCount();
+	}
+	
+	@Override
+	public List<Map<String, Object>> getLoginHistory() throws Exception {
+	    return dao.getLoginHistory();
 	}
 
 }

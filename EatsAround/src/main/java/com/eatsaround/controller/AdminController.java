@@ -1,11 +1,13 @@
 package com.eatsaround.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.eatsaround.service.ActivityLogService;
 import com.eatsaround.service.AdminService;
 import com.eatsaround.vo.MemberVO;
+
+import v2.mvc.spring.service.BlogService;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -25,18 +30,35 @@ public class AdminController {
 
     @Inject
     private AdminService adminService;
+    
 
-  //管理者画面
-    @GetMapping(value="/index")
+    @Inject
+    private ActivityLogService activityLogService;
+
+    @Autowired
+    private BlogService blogService;
+    
+    
+
+    // 管理者画面
+    @GetMapping(value = "/index")
     public String getIndex(Model model) throws Exception {
         logger.info("get index");
-        
-        //会員数を取得
+
+        // 会員数を取得
         int memberCount = adminService.getMemberCount();
         model.addAttribute("memberCount", memberCount);
-        return "admin/index"; 
-    } 
-    
+        
+        // 掲示板数を取得
+        int blogCount = adminService.getBlogCount();
+        model.addAttribute("blogCount", blogCount);
+        
+     // ログイン履歴を取得
+        List<Map<String, Object>> loginHistory = activityLogService.getLoginHistory();
+        model.addAttribute("loginHistory", loginHistory);
+        
+        return "admin/index";
+    }
 
     // メンバーリストの表示
     @GetMapping(value = "/member/list")
@@ -46,14 +68,17 @@ public class AdminController {
         List<MemberVO> memberList = adminService.memberList(); // メンバーリスト取得
         logger.info("Member list size: {}", memberList.size()); // デバッグログ追加
         model.addAttribute("memberList", memberList);
-        
-        return "admin/member/list"; 
+
+        // 掲示板の数を取得
+        int blogCount = adminService.getBlogCount();
+        model.addAttribute("blogCount", blogCount);
+        return "admin/member/list";
     }
 
-    
     // メンバー退会処理（物理削除）
     @PostMapping(value = "/member/delete")
-    public String deleteMember(@RequestParam("userId") String userId, RedirectAttributes redirectAttributes) throws Exception {
+    public String deleteMember(@RequestParam("userId") String userId, RedirectAttributes redirectAttributes)
+            throws Exception {
         logger.info("post admin delete");
 
         // adminユーザーの削除を防止
@@ -67,17 +92,13 @@ public class AdminController {
         adminService.deleteMember(userId); // 退会処理を実行
         return "redirect:/admin/member/list"; // 退会後にメンバーリストへリダイレクト
     }
-    
-    //管理者掲示板ページ
-    @GetMapping(value="/member/bbs")
+
+    // 管理者掲示板ページ
+    @GetMapping(value = "/member/bbs")
     public String getBbs(Model model) throws Exception {
         logger.info("get bbs");
-        
-      //掲示板の数を取得
-        int boardCount = adminService.getBoardCount();
-        model.addAttribute("boardCount", boardCount);
-        
-        return "admin/member/bbs"; 
+
+        return "admin/member/bbs";
     }
 
 }

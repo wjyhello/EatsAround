@@ -14,5 +14,6 @@ public interface BlogMapper {
 	
 	int delete(int blgContSeq);
 	List<BlogListResponseVO> selectList(BlogListRequestVO blogListRequestVO);
+	int getBlogCount(); 
 	
 }

@@ -22,4 +22,6 @@ public interface BlogService {
 
 	List<BlogListResponseVO> list(BlogListRequestVO blogListRequestVO);
 	
+	int getBlogCount(); // 追加
+		
 }

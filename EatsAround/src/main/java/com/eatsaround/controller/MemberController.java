@@ -1,5 +1,6 @@
 package com.eatsaround.controller;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.eatsaround.service.ActivityLogService;
 import com.eatsaround.service.MemberService;
 import com.eatsaround.vo.MemberVO;
 
@@ -25,10 +27,13 @@ import com.eatsaround.vo.MemberVO;
 @Controller
 public class MemberController {
     @Inject
-    MemberService service;
+    private MemberService service;
+
+    @Inject
+    private ActivityLogService activityLogService;
 
     @Autowired
-    BCryptPasswordEncoder passEncoder;
+    private BCryptPasswordEncoder passEncoder;
 
     @Bean // 객체 생성을 하지 않으면 오류가 생김
     BCryptPasswordEncoder passEncoder() {
@@ -52,6 +57,10 @@ public class MemberController {
         vo.setRegDate(new Date());
 
         service.signup(vo);
+        
+        // アクティビティログに登録記録を追加
+        activityLogService.logActivityVO(vo.getUserId(), "SIGNUP", new Timestamp(System.currentTimeMillis()));
+        
         return "redirect:/";
     }
 
@@ -70,6 +79,10 @@ public class MemberController {
         if (login != null && passEncoder.matches(vo.getUserPass(), login.getUserPass())) {
             session.setAttribute("member", login);
             logger.info("post signin: User {} logged in", login.getUserId());
+            
+            // アクティビティログにログインを記録
+            activityLogService.logActivityVO(login.getUserId(), "LOGIN", new Timestamp(System.currentTimeMillis()));
+
             return "redirect:/"; // 一般ユーザーの場合のリダイレクト
         } else {
             session.setAttribute("member", null);
@@ -82,6 +95,13 @@ public class MemberController {
     // ログアウト
     @GetMapping(value = "/member/signout")
     public String signout(HttpSession session) throws Exception {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+
+        if (member != null) {
+            // アクティビティログにログアウトを記録
+            activityLogService.logActivityVO(member.getUserId(), "LOGOUT", new Timestamp(System.currentTimeMillis()));
+        }
+
         service.signout(session);
         return "redirect:/";
     }

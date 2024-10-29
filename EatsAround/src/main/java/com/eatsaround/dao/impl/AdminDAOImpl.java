@@ -1,6 +1,7 @@
 package com.eatsaround.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -40,8 +41,13 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int getBoardCount() throws Exception {
-		return sql.selectOne(namespace + ".getBoardCount");
+	public int getBlogCount() throws Exception {
+		return sql.selectOne(namespace + ".getBlogCount");
+	}
+	
+	@Override
+	public List<Map<String, Object>> getLoginHistory() throws Exception {
+	    return sql.selectList(namespace + ".getLoginHistory");
 	}
 
 

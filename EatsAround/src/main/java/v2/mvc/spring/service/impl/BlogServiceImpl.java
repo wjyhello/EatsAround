@@ -52,5 +52,9 @@ public class BlogServiceImpl implements BlogService {
 	    List<BlogListResponseVO> result = this.blogMapper.selectList(blogListRequestVO);
 	    return result;
 	}
+    @Override
+    public int getBlogCount() {
+        return blogMapper.getBlogCount(); // マッパーを呼び出し
+    }
 
 }
