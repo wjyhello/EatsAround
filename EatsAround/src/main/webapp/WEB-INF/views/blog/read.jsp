@@ -41,7 +41,9 @@
                     <input type="hidden" name="_method" value="delete"/>
                     <input type="hidden" name="blogContSeq" value="${blogCont.BLG_CONT_SEQ}"/>
                     <a href="/list" class="btn btn-outline-secondary">list</a>
+                    <c:if test="${blogListResponseVO.userId == member.userId || member.verify == 9}">
                     <input type="submit" name="delete_button" value="삭제" class="btn btn-outline-danger"/>
+                    </c:if>
                 </div>
             </form>
 <hr/>

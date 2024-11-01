@@ -47,7 +47,7 @@
 	<td class="text-center">${blogListResponseVO.insertDtFormat}</td>
 	<td class="text-center">${blogListResponseVO.userId}</td>
 	<td class="text-center">
-	<c:if test="${blogListResponseVO.userId == member.userId}">
+	<c:if test="${blogListResponseVO.userId == member.userId || member.verify == 9}">
 	<a href="/edit/${blogListResponseVO.blgContSeq}" class="a-link">
 	수정
 	</a>
