@@ -29,8 +29,7 @@
 <col style="width:20%"/>
 <col style="width:60%"/>
 <col style="width:10%"/>
-<col style="width:5%"/>
-<col style="width:5%/>
+<col style="width:10%"/>
 </colgroup>
 	<thead>
 		<tr>
@@ -38,16 +37,15 @@
 			<th class="text-center">제목</th>
 			<th class="text-center">입력일</th>
 			<th class="text-center">입력자</th>
-			<th class="text-center">수정</th>
 		</tr>
 	</thead>
 <c:forEach var="blogListResponseVO" items="${blogListResponseVOList}">
 	<tbody>
 	<tr>
-	<td>${blogListResponseVO.blgContSeq}</td>
-	<td><a href="/read/${blogListResponseVO.blgContSeq}" class="a-link">${blogListResponseVO.title}</a></td>
-	<td>${blogListResponseVO.insertDtFormat}</td>
-	<td>${blogListResponseVO.userId}</td>
+	<td class="text-center">${blogListResponseVO.blgContSeq}</td>
+	<td class="text-center"><a href="/read/${blogListResponseVO.blgContSeq}" class="a-link">${blogListResponseVO.title}</a></td>
+	<td class="text-center">${blogListResponseVO.insertDtFormat}</td>
+	<td class="text-center">${blogListResponseVO.userId}</td>
 	<td class="text-center">
 	<c:if test="${blogListResponseVO.userId == member.userId}">
 	<a href="/edit/${blogListResponseVO.blgContSeq}" class="a-link">

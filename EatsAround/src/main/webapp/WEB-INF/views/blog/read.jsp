@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% pageContext.setAttribute("CRLF", "\r\n"); %>
@@ -43,80 +44,112 @@
                     <input type="submit" name="delete_button" value="삭제" class="btn btn-outline-danger"/>
                 </div>
             </form>
+<hr/>
+<ul class="list-group">
+<c:forEach items="${reply}" var="reply">
+	<li class="list-group-item">
+	<div>
+	<p class="text-secondary">${reply.writer}/ <fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd"/></p>
+	<p class="text-secondary">${reply.content}</p>
+	</div>
+	<div class="d-flex justify-content-end my-5">
+	<div class="btn-group">
+	<a href="/reply/modify?blgContSeq=${blogCont.BLG_CONT_SEQ}&rno=${reply.rno}" class="btn btn-outline-success">수정</a>
+	<a href="/reply/modify?blgContSeq=${blogCont.BLG_CONT_SEQ}&rno=${reply.rno}" class="btn btn-outline-danger">삭제</a>
+	
+	</div>
+	</div>
+	</li>
+</c:forEach>
+</ul>
 
-            <div class="p-2">
-                <div class="mt-2">
-                    <input type="text" id="cmtBdy" class="form-control"/>
-                </div>
-                <div class="mt-2">
-                    <input type="password" id="tmpPw" class="form-control"/>
-                </div>
-                <div class="w-100 my-2">
-                    <input type="button" id="btn_comment_add" value="댓글쓰기" class="btn btn-success"/>
-                </div>
-                <div id="comment_list">
-                </div>
-            </div>
+<form action="/reply/write" method="post">
+<div class="input-group my-5">
+<label class="form-label">
+댓글 작성자 
+</label>
+<input type="text" class="form-control" name="writer">
+</div>
+<textarea class="form-control" name="content"></textarea>
+<input type="hidden" name="blogContSeq" value="${blogCont.BLG_CONT_SEQ}">
+<div class="my-3 d-flex justify-content-end">
+<input type="submit" value="댓글작성" class="btn btn-light"/>
+</div>
+</form>
 
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-            <script type="text/javascript">
-                $("#btn_comment_add").click(function(){
-                    let blgContSeq = ${blogCont.BLG_CONT_SEQ};
-                    let cmtBdy = $("#cmtBdy").val();
-                    let tmpPw = $("#tmpPw").val();
-                    let send_data = {};
+<!--            <div class="p-2">-->
+<!--                <div class="mt-2">-->
+<!--                    <input type="text" id="writer" class="form-control"/>-->
+<!--                </div>-->
+<!--                <div class="mt-2">-->
+<!--                    <input type="text" id="content" class="form-control"/>-->
+<!--                </div>-->
+<!--                <div class="w-100 my-2">-->
+<!--                    <input type="button" id="replyWrite" value="댓글쓰기" class="btn btn-success"/>-->
+<!--                </div>-->
+<!--                <div id="replyList">-->
+<!--                </div>-->
+<!--            </div>-->
 
-                    if(tmpPw == ""){
-                        send_data = {
-                            "blgContSeq": blgContSeq,
-                            "cmtBdy": cmtBdy    
-                        };
-                    } else {
-                        send_data = {
-                            "blgContSeq": blgContSeq,
-                            "cmtBdy": cmtBdy,
-                            "tmpPw": tmpPw,
-                        };
-                    }
+<!--            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>-->
+<!--            <script type="text/javascript">-->
+<!--                $("#btn_comment_add").click(function(){-->
+<!--                    let blgContSeq = ${blogCont.BLG_CONT_SEQ};-->
+<!--                    let cmtBdy = $("#cmtBdy").val();-->
+<!--                    let tmpPw = $("#tmpPw").val();-->
+<!--                    let send_data = {};-->
 
-                    $.post("/comment/add", send_data)
-                        .done(function(data){
-                            if (data && data.cmtBdy && data.seqBlgCmt) {
-                                render_comment(data.cmtBdy, data.seqBlgCmt);
-                            } else {
-                                alert("서버에서 받은 응답이 유효하지 않습니다.");
-                            }
-                        })
-                        .fail(function(jqXHR, textStatus, errorThrown){
-                            alert("댓글 추가에 실패했습니다. 상태: " + textStatus + " - 오류: " + errorThrown);
-                        });
-                });
+<!--                    if(tmpPw == ""){-->
+<!--                        send_data = {-->
+<!--                            "blgContSeq": blgContSeq,-->
+<!--                            "cmtBdy": cmtBdy    -->
+<!--                        };-->
+<!--                    } else {-->
+<!--                        send_data = {-->
+<!--                            "blgContSeq": blgContSeq,-->
+<!--                            "cmtBdy": cmtBdy,-->
+<!--                            "tmpPw": tmpPw,-->
+<!--                        };-->
+<!--                    }-->
 
-                function render_comment(cmtBdy, seqBlgCmt){
-                    // HTML 이스케이프는 해야 하지만, 여기서는 샘플로 그대로 사용
-                    let append_val = '<p><a href="/comment/delete/{seqBlgCmt}">{cmtBdy}</a></p>'
-                        .replace("{seqBlgCmt}", seqBlgCmt)
-                        .replace("{cmtBdy}", cmtBdy);
+<!--                    $.post("/comment/add", send_data)-->
+<!--                        .done(function(data){-->
+<!--                            if (data && data.cmtBdy && data.seqBlgCmt) {-->
+<!--                                render_comment(data.cmtBdy, data.seqBlgCmt);-->
+<!--                            } else {-->
+<!--                                alert("서버에서 받은 응답이 유효하지 않습니다.");-->
+<!--                            }-->
+<!--                        })-->
+<!--                        .fail(function(jqXHR, textStatus, errorThrown){-->
+<!--                            alert("댓글 추가에 실패했습니다. 상태: " + textStatus + " - 오류: " + errorThrown);-->
+<!--                        });-->
+<!--                });-->
 
-                    $("#comment_list").append(append_val);
-                }
+<!--                function render_comment(cmtBdy, seqBlgCmt){-->
+<!--                    // HTML 이스케이프는 해야 하지만, 여기서는 샘플로 그대로 사용-->
+<!--                    let append_val = '<p><a href="/comment/delete/{seqBlgCmt}">{cmtBdy}</a></p>'-->
+<!--                        .replace("{seqBlgCmt}", seqBlgCmt)-->
+<!--                        .replace("{cmtBdy}", cmtBdy);-->
 
-                function init_comment(){
-                    $.get("/comment/list/${blogCont.BLG_CONT_SEQ}", function(data){
-                        if (Array.isArray(data)) {
-                            for (let comment of data){
-                                render_comment(comment.cmtBdy, comment.seqBlgCmt);
-                            }
-                        } else {
-                            alert("서버에서 댓글 목록을 가져오는 데 실패했습니다.");
-                        }
-                    });
-                }
+<!--                    $("#comment_list").append(append_val);-->
+<!--                }-->
 
-                $(document).ready(function(){
-                    init_comment();
-                });
-            </script>
+<!--                function init_comment(){-->
+<!--                    $.get("/comment/list/${blogCont.BLG_CONT_SEQ}", function(data){-->
+<!--                        if (Array.isArray(data)) {-->
+<!--                            for (let comment of data){-->
+<!--                                render_comment(comment.cmtBdy, comment.seqBlgCmt);-->
+<!--                            }-->
+<!--                        } else {-->
+<!--                            alert("서버에서 댓글 목록을 가져오는 데 실패했습니다.");-->
+<!--                        }-->
+<!--                    });-->
+<!--                }-->
+
+<!--                $(document).ready(function(){-->
+<!--                    init_comment();-->
+<!--                });-->
+<!--            </script>-->
 
         </div>
     </div>
