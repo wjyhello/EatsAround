@@ -68,14 +68,15 @@
 <form action="/reply/write" method="post">
 <div class="input-group my-5">
 <label class="form-label">
-댓글 작성자 
+댓글 작성자 : ${member.userId}
 </label>
-<input type="text" class="form-control" name="writer">
+<input type="hidden" name="writer" value="${member.userId}" class="form-control">
 </div>
 <textarea class="form-control" name="content"></textarea>
 <input type="hidden" name="blogContSeq" value="${blogCont.BLG_CONT_SEQ}">
 <div class="my-3 d-flex justify-content-end">
-<input type="submit" value="댓글작성" class="btn btn-light"/>
+<c:if test="${member.userId !=null}">
+<input type="submit" value="댓글작성" class="btn btn-light"/></c:if>
 </div>
 </form>
 
