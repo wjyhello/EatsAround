@@ -33,4 +33,16 @@ public class ReplyServiceImpl implements ReplyService {
 		return dao.replySelect(vo);
 	}
 
+	@Override
+	public void modify(ReplyVO vo) throws Exception {
+		dao.modify(vo);
+		
+	}
+
+	@Override
+	public void delete(ReplyVO vo) throws Exception {
+		dao.delete(vo);
+		
+	}
+
 }

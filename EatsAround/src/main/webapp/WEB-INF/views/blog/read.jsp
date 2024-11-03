@@ -56,8 +56,9 @@
 	</div>
 	<div class="d-flex justify-content-end my-5">
 	<div class="btn-group">
-	<a href="/reply/modify?blgContSeq=${blogCont.BLG_CONT_SEQ}&rno=${reply.rno}" class="btn btn-outline-success">수정</a>
-	<a href="/reply/modify?blgContSeq=${blogCont.BLG_CONT_SEQ}&rno=${reply.rno}" class="btn btn-outline-danger">삭제</a>
+	<a href="/reply/modify/${blogCont.BLG_CONT_SEQ}/${reply.rno}" class="btn btn-outline-success">수정</a>
+	<a href="/reply/delete/${blogCont.BLG_CONT_SEQ}/${reply.rno}" class="btn btn-outline-danger">삭제</a>
+
 	
 	</div>
 	</div>

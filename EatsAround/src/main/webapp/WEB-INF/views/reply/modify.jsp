@@ -12,7 +12,7 @@
 		<label class="form-label">
 		댓글 작성자
 		</label>
-		<input type="text" name="writer" class="form-control" readonly="readonly" value="${reply.writer}"/>
+		<input type="hidden" name="writer" class="form-control" readonly="readonly" value="${reply.writer}"/>
 		</div>
 		<div class="input-group">
 			<textarea class="form-control" name="content"> ${reply.content}</textarea>

@@ -10,4 +10,8 @@ public interface ReplyDAO {
 	public void write(ReplyVO vo)throws Exception;
 	
 	public ReplyVO replySelect(ReplyVO vo) throws Exception;
+	
+	public void modify (ReplyVO vo) throws Exception;
+	
+	public void delete (ReplyVO vo) throws Exception;
 }
