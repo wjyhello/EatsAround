@@ -69,6 +69,20 @@ public class ReplyController {
         replyService.modify(vo);
         return "redirect:/read/" + blogContSeq;
     }
+    
+//    @GetMapping("/delete/{rno}")
+//    @ResponseBody
+//    public String delete(@PathVariable int rno) throws Exception {
+//        replyService.delete(rno);
+//        return "redirect:${path}/list";
+//    }
+    
+    @GetMapping("/delete/{rno}")
+    public String delete(@PathVariable int rno) throws Exception {
+        replyService.delete(rno);
+        return "redirect:/list";
+    }
 
+    
     
 }
