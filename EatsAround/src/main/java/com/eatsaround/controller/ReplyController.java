@@ -50,14 +50,25 @@ public class ReplyController {
         
         ReplyVO reply = replyService.replySelect(vo);
         model.addAttribute("reply", reply);
+        model.addAttribute("blgContSeq", blgContSeq);
+        
         
         return "reply/modify";
     }
 
-    // 댓글 수정 처리
+//    // 댓글 수정 처리
+//    @PostMapping(value = "/modify/{blogContSeq}")
+//    public String postModify(ReplyVO vo) throws Exception {
+//        replyService.modify(vo);
+//        return "redirect:/read/" + vo.getBlgContSeq();
+//    }
+    
     @PostMapping(value = "/modify")
-    public String postModify(ReplyVO vo) throws Exception {
+    public String postModify(@RequestParam("blogContSeq") int blogContSeq, ReplyVO vo) throws Exception {
+        vo.setBlgContSeq(blogContSeq);  // blogContSeq를 ReplyVO 객체에 설정
         replyService.modify(vo);
-        return "redirect:/read/" + vo.getBlgContSeq();
+        return "redirect:/read/" + blogContSeq;
     }
+
+    
 }
