@@ -16,4 +16,6 @@ public interface AdminService {
 	
 	List<Map<String, Object>> getLoginHistory() throws Exception;
 
+	public List<MemberVO> memberList(String search) throws Exception;
+
 }

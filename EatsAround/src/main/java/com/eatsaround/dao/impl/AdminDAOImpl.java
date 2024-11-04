@@ -51,4 +51,9 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 
+	@Override
+	public List<MemberVO> getMemberList(String search) throws Exception {
+	    return sql.selectList(namespace + ".getMemberList", search);
+	}
+
 }

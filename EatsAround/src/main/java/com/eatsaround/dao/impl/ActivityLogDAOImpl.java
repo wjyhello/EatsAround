@@ -20,19 +20,14 @@ public class ActivityLogDAOImpl implements ActivityLogDAO {
     private static String namespace = "com.eatsaround.EaSql.activityLogMapper";
 
     @Override
-    public List<ActivityLogVO> getLoginHistory() throws Exception {
-        return sql.selectList(namespace + ".getLoginHistory");
+    public List<ActivityLogVO> getActivityHistory() throws Exception {
+        return sql.selectList(namespace + ".getActivityHistory"); // 統一された履歴を取得
     }
 
     @Override
-    public List<ActivityLogVO> getLogoutHistory() throws Exception {
-    	return sql.selectList(namespace + ".getLogoutHistory");
-    }
-
-    @Override
-    public void logActivityVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
+    public void activityLogVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
         // INSERT SQLを呼び出して活動を記録する
-        sql.insert(namespace + ".logActivityVO", new ActivityLogVO(userId, activityType, activityTime));
+        sql.insert(namespace + ".activityLogVO", new ActivityLogVO(userId, activityType, activityTime));
     }
 
 }

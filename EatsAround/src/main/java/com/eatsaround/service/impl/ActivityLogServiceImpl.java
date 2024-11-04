@@ -18,18 +18,13 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private ActivityLogDAO dao;
 
     @Override
-    public List<ActivityLogVO> getLoginHistory() throws Exception {
-        return dao.getLoginHistory();
+    public List<ActivityLogVO> getActivityHistory() throws Exception {
+        return dao.getActivityHistory(); // 統一された履歴を取得
     }
 
     @Override
-    public List<ActivityLogVO> getLogoutHistory() throws Exception {
-    	return dao.getLogoutHistory();
-    }
-
-    @Override
-    public void logActivityVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
-        dao.logActivityVO(userId, activityType, activityTime);
+    public void activityLogVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
+        dao.activityLogVO(userId, activityType, activityTime);
     }
 
 }

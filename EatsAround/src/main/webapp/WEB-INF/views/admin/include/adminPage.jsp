@@ -14,10 +14,4 @@
 		</a>
 	</li>
 
-	<li class="list-group-item">
-		<a href="/admin/member/bbs">
-		게시판 관리
-		</a>
-	</li>
-
 </ul>

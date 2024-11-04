@@ -44,5 +44,11 @@ public class AdminServiceImpl implements AdminService {
 	public List<Map<String, Object>> getLoginHistory() throws Exception {
 	    return dao.getLoginHistory();
 	}
+	
+	@Override
+	public List<MemberVO> memberList(String search) throws Exception {
+	    return dao.getMemberList(search);
+	}
+
 
 }

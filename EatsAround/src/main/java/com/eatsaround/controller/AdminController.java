@@ -53,23 +53,19 @@ public class AdminController {
         int blogCount = adminService.getBlogCount();
         model.addAttribute("blogCount", blogCount);
         
-        //ログイン履歴を取得
-        List<ActivityLogVO> loginHistory = activityLogService.getLoginHistory();
-        model.addAttribute("loginHistory", loginHistory);
-        
-        // ログアウト履歴を取得
-        List<ActivityLogVO> logoutHistory = activityLogService.getLogoutHistory();
-        model.addAttribute("logoutHistory", logoutHistory);
-        
+        // 統一されたアクティビティ履歴を取得
+        List<ActivityLogVO> activityHistory = activityLogService.getActivityHistory();
+        model.addAttribute("activityHistory", activityHistory); // 1つのリストに統一
         return "admin/index";
     }
 
     // メンバーリストの表示
     @GetMapping(value = "/member/list")
-    public String getMemberList(Model model) throws Exception {
+    public String getMemberList(@RequestParam(value = "search", required = false) String search, Model model) throws Exception {
         logger.info("get admin list");
 
-        List<MemberVO> memberList = adminService.memberList(); // メンバーリスト取得
+        //List<MemberVO> memberList = adminService.memberList(); // メンバーリスト取得
+        List<MemberVO> memberList = adminService.memberList(search); // 検索条件を渡す        
         logger.info("Member list size: {}", memberList.size()); // デバッグログ追加
         model.addAttribute("memberList", memberList);
 
@@ -95,14 +91,6 @@ public class AdminController {
 
         adminService.deleteMember(userId); // 退会処理を実行
         return "redirect:/admin/member/list"; // 退会後にメンバーリストへリダイレクト
-    }
-
-    // 管理者掲示板ページ
-    @GetMapping(value = "/member/bbs")
-    public String getBbs(Model model) throws Exception {
-        logger.info("get bbs");
-
-        return "admin/member/bbs";
     }
 
 }

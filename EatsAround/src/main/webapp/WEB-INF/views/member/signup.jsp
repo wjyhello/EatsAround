@@ -118,7 +118,7 @@
 						</a>-->
 									<input type="submit"
 										class="btn btn-primary btn-user btn-block signup_btn"
-										value="회원가입" onclick="IDCheck" />
+										value="회원가입" />
 								</p>
 								<p class="mb-3">
 									<a href="${path}/google.jsp"

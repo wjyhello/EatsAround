@@ -9,24 +9,15 @@
         <result property="activityTime" column="ACTIVITY_TIME"/> <!-- ACTIVITY_TIMEカラムをactivityTimeプロパティにマッピング -->
     </resultMap>
 
-    <!-- ログイン履歴を取得するためのSELECT文 -->
-    <select id="getLoginHistory" resultMap="ActivityLogResultMap">
+    <!-- 統一された履歴を取得するためのSELECT文 -->
+    <select id="getActivityHistory" resultMap="ActivityLogResultMap">
         SELECT USERID, ACTIVITY_TYPE, ACTIVITY_TIME
         FROM ACTIVITY_LOG
-        WHERE ACTIVITY_TYPE = 'LOGIN' <!-- アクティビティタイプがLOGINのレコードを取得 -->
-        ORDER BY ACTIVITY_TIME DESC <!-- アクティビティ時間で降順にソート -->
-    </select>
-    
-    <!-- ログアウト履歴を取得するためのSELECT文 -->
-    <select id="getLogoutHistory" resultMap="ActivityLogResultMap">
-        SELECT USERID, ACTIVITY_TYPE, ACTIVITY_TIME
-        FROM ACTIVITY_LOG
-        WHERE ACTIVITY_TYPE = 'LOGOUT' <!-- アクティビティタイプがLOGOUTのレコードを取得 -->
-        ORDER BY ACTIVITY_TIME DESC <!-- アクティビティ時間で降順にソート -->
+        ORDER BY ACTIVITY_TIME DESC
     </select>
     
     <!-- アクティビティを挿入するためのINSERT文 -->
-    <insert id="logActivityVO" parameterType="com.eatsaround.vo.ActivityLogVO">
+    <insert id="activityLogVO" parameterType="com.eatsaround.vo.ActivityLogVO">
         INSERT INTO ACTIVITY_LOG (USERID, ACTIVITY_TYPE, ACTIVITY_TIME)
         VALUES (#{userId}, #{activityType}, #{activityTime}) <!-- ActivityLogVOからプロパティを取得 -->
     </insert>

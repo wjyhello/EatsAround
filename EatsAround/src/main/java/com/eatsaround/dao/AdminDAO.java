@@ -16,4 +16,7 @@ public interface AdminDAO {
 	int getBlogCount() throws Exception;
 	
 	public List<Map<String, Object>> getLoginHistory() throws Exception;
+
+	public List<MemberVO> getMemberList(String search) throws Exception;
+
 }

@@ -3,10 +3,15 @@
 <mapper namespace="com.eatsaround.EaSql.adminMapper">
 
     <!-- 会員リストを取得 -->
-    <select id="getMemberList" resultType="com.eatsaround.vo.MemberVO">
-        SELECT userId, userName, userEmail, userPhone, regDate
-        FROM ea_member
-    </select>
+<select id="getMemberList" resultType="com.eatsaround.vo.MemberVO">
+    SELECT userId, userName, userEmail, userPhone, regDate
+    FROM ea_member
+    <if test="search != null and search != ''">
+        WHERE userName LIKE CONCAT('%', #{search}, '%') OR userEmail LIKE CONCAT('%', #{search}, '%')
+    </if>
+    ORDER BY userName ASC
+</select>
+
 
     <!-- 会員数を取得 -->
     <select id="getMemberCount" resultType="int">
