@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../include/header.jsp" flush="false"/>
 <div class="container">
@@ -20,12 +21,13 @@
         </p>
         
         <p>
-           <textarea rows="10" name="contBdy" class="form-control">본문: ${blogCont.CONT_BDY}</textarea>
+           <textarea rows="10" name="contBdy" class="form-control">${blogCont.CONT_BDY}</textarea>
         </p>
         <p>입력일 : <fmt:formatDate value="${blogCont.INSERT_DT}" pattern="yyyy.MM.dd HH:mm:ss" /></p>
         <div class="d-flex justify-content-end my-5">
 	        <div class="btn-group">
 		        <a href="/list" class="btn btn-outline-secondary">list</a>
+		        
 		        <input type="submit" name="create" value="블로그 컨텐츠 수정" class="btn btn-outline-success"/> 
 	        </div>            
         </div>

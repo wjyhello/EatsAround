@@ -7,24 +7,43 @@ select SEQ_BLG_CONT.NEXTVAL from dual
 </selectKey>
 <![CDATA[
 insert into TB_BLG_CONT
-(BLG_CONT_SEQ, TITLE, CONT_BDY)
+(BLG_CONT_SEQ, TITLE, CONT_BDY,USERID)
 values
-(#{seq_blg_cont}, #{title}, #{content_body})
+(#{seq_blg_cont}, #{title}, #{content_body},#{userId})
 ]]>
 </insert>
 <select id="selectOne" parameterType="java.lang.Integer" resultType="hashMap">
+
+<!--  <![CDATA[
+SELECT
+    BLG_CONT_SEQ,
+    TITLE,
+    TO_CHAR(CONT_BDY) as CONT_BDY,
+    INSERT_DT,
+    B.USERID,
+FROM
+    TB_BLG_CONT B
+    JOIN EA_MEMBER M ON B.USERID = M.USERID
+WHERE
+    1 = 1
+]]>
+</select>  -->
+
 <![CDATA[
 select
 BLG_CONT_SEQ,
 TITLE,
 TO_CHAR(CONT_BDY) as CONT_BDY,
-INSERT_DT
+INSERT_DT,
+USERID
 from
 TB_BLG_CONT
 where
 BLG_CONT_SEQ = #{BLG_CONT_SEQ}
 ]]>
-</select>
+</select>  
+
+
 <update id="update" parameterType="v2.mvc.spring.vo.BlogEditRequestVO">
 <![CDATA[
 UPDATE TB_BLG_CONT

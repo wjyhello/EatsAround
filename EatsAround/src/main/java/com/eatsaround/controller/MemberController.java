@@ -78,6 +78,7 @@ public class MemberController {
 
         if (login != null && passEncoder.matches(vo.getUserPass(), login.getUserPass())) {
             session.setAttribute("member", login);
+            session.setAttribute("id",login.getUserId());
             logger.info("post signin: User {} logged in", login.getUserId());
             
             // アクティビティログにログインを記録

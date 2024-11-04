@@ -4,7 +4,7 @@
 <div class="container">
 <div class="row">
 <div class="col-md-12">
-<h1 class="my-5">Create</h1>
+<h1 class="my-5">게시물작성</h1>
 <ul class="breadcrumb mb-3">
 <li class="breadcrumb-item"><a href="/list">HOME</a></li>
 <li class="breadcrumb-item active">create</li>
@@ -16,6 +16,14 @@
 	</label>
 	<input type="text" name="title" class="form-control">
 </div>	
+
+<!-- 작성자: 세션에서 userId를 가져와 표시 -->
+<div class="input-group my-3">
+	<label class="form-label" for="board">
+	작성자: ${member.userId}
+	</label>
+	<input type="hidden" name="board" value="${member.userId}" class="form-control">
+</div>
 <div class="input-group my-3">
 	<label class="form-label">
 	컨텐츠 본문 : 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eatsaround.Easql.ReplyMapper">
+<resultMap id="replyList" type="com.eatsaround.vo.ReplyVO"> 
+<result column="BLG_CONT_SEQ" property="blgContSeq" jdbcType="VARCHAR" javaType="Integer"/>
+<result column="REPLYDATE" property="replyDate" jdbcType="DATE" javaType="java.time.LocalDateTime"/>
+</resultMap>
+<select id="replyList" parameterType="int" resultType="com.eatsaround.vo.ReplyVO">
+<![CDATA[
+select BLG_CONT_SEQ,rno,writer,content,replyDate from TB_BLG_CONT_REPLY 
+where BLG_CONT_SEQ = #{blgContSeq}
+]]>
+</select>
+
+<insert id="replyWrite" parameterType="com.eatsaround.vo.ReplyVO">
+<![CDATA[
+insert into TB_BLG_CONT_REPLY(BLG_CONT_SEQ, rno, writer, content, replyDate)
+values (#{blgContSeq}, SEQ_RNO.nextval, #{writer}, #{content}, SYSDATE)
+]]>
+</insert>
+<select id="replySelect" parameterType="com.eatsaround.vo.ReplyVO">
+<![CDATA[
+select rno,BLG_CONT_SEQ,writer,content,replyDate from TB_BLG_CONT_REPLY
+where BLG_CONT_SEQ =#{blgContSeq} and rno = #{rno}
+]]>
+
+</select>
+
+</mapper>

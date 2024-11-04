@@ -26,9 +26,9 @@
 <c:if test="${not empty blogListResponseVOList}">
 <table class="table table-hover">
 <colgroup>
-<col style="width:5%"/>
-<col style="width:70%"/>
-<col style="width:15%"/>
+<col style="width:20%"/>
+<col style="width:60%"/>
+<col style="width:10%"/>
 <col style="width:10%"/>
 </colgroup>
 	<thead>
@@ -36,19 +36,22 @@
 			<th class="text-center">글번호</th>
 			<th class="text-center">제목</th>
 			<th class="text-center">입력일</th>
-			<th class="text-center">수정</th>
+			<th class="text-center">입력자</th>
 		</tr>
 	</thead>
 <c:forEach var="blogListResponseVO" items="${blogListResponseVOList}">
 	<tbody>
 	<tr>
-	<td>${blogListResponseVO.blgContSeq}</td>
-	<td><a href="/read/${blogListResponseVO.blgContSeq}" class="a-link">${blogListResponseVO.title}</a></td>
-	<td>${blogListResponseVO.insertDtFormat}</td>
+	<td class="text-center">${blogListResponseVO.blgContSeq}</td>
+	<td class="text-center"><a href="/read/${blogListResponseVO.blgContSeq}" class="a-link">${blogListResponseVO.title}</a></td>
+	<td class="text-center">${blogListResponseVO.insertDtFormat}</td>
+	<td class="text-center">${blogListResponseVO.userId}</td>
 	<td class="text-center">
+	<c:if test="${blogListResponseVO.userId == member.userId || member.verify == 9}">
 	<a href="/edit/${blogListResponseVO.blgContSeq}" class="a-link">
 	수정
 	</a>
+	</c:if>
 	</td>
 	</tr>
 	</tbody>
@@ -56,7 +59,9 @@
 </table>
 <div class="d-flex justify-content-end my-5">
 	<div class="btn-group">
+	<c:if test="${member!=null}">
 		<a href="/create" class="btn btn-outline-primary px-4">글쓰기</a>
+	</c:if>
 	</div>
 </div>
 </c:if>
