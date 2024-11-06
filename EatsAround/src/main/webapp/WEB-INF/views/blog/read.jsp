@@ -37,11 +37,11 @@
             </table>
 
             <form method="post" action="/delete">
-                <div class="d-flex justify-content-end my-5">
+               	 <div class="d-flex justify-content-end my-5">
                     <input type="hidden" name="_method" value="delete"/>
                     <input type="hidden" name="blogContSeq" value="${blogCont.BLG_CONT_SEQ}"/>
                     <a href="/list" class="btn btn-outline-secondary">list</a>
-                    <c:if test="${blogListResponseVO.userId == member.userId || member.verify == 9}">
+                    <c:if test="${member.userId != null && blogListResponseVO.userId == member.userId || member.verify == 9}">
                     <input type="submit" name="delete_button" value="삭제" class="btn btn-outline-danger"/>
                     </c:if>
                 </div>
@@ -56,9 +56,10 @@
 	</div>
 	<div class="d-flex justify-content-end my-5">
 	<div class="btn-group">
+	<c:if test="${member.userId==reply.writer}">
 	<a href="/reply/modify/${blogCont.BLG_CONT_SEQ}/${reply.rno}" class="btn btn-outline-success">수정</a>
 	<a href="/reply/delete/${reply.rno}" class="btn btn-outline-danger">삭제</a>
-
+	</c:if>
 	
 	</div>
 	</div>

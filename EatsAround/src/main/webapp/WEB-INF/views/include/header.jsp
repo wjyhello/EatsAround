@@ -86,6 +86,7 @@
 </nav>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="${path}/resources/js/find.js"></script>
 <script src="${path}/resources/js/js.js"></script>
 <script src="${path}/resources/js/daum.js"></script>
 <script src="${path}/resources/js/util.js"></script>
