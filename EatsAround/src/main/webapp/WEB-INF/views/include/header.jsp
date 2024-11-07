@@ -65,10 +65,11 @@
                 </c:if>
             </ul>
 
-            <form class="d-flex ms-auto search-bar">
-                <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button">Search</button>
-            </form>
+            <ul class="nav d-flex justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link text-muted" href="${path}/find">내 근처 수족관 찾기</a>
+    </li>
+</ul>
 
             <ul class="navbar-nav ms-auto">
                 <c:if test="${member == null}">
@@ -85,6 +86,7 @@
 </nav>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="${path}/resources/js/find.js"></script>
 <script src="${path}/resources/js/js.js"></script>
 <script src="${path}/resources/js/daum.js"></script>
 <script src="${path}/resources/js/util.js"></script>

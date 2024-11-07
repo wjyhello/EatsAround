@@ -106,4 +106,6 @@ public class MemberController {
         service.signout(session);
         return "redirect:/";
     }
+    
+    
 }

@@ -33,7 +33,7 @@ update TB_BLG_CONT_REPLY set content = #{content} where rno = #{rno} and BLG_CON
 
 <delete id="replyDelete" parameterType="com.eatsaround.vo.ReplyVO">
 <![CDATA[
-delete from TB_BLG_CONT_REPLY where rno = #{rno} and BLG_CONT_SEQ =#{blgContSeq}
+delete from TB_BLG_CONT_REPLY where rno = #{rno}
 ]]>
 </delete>
 
