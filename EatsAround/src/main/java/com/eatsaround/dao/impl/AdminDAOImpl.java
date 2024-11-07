@@ -14,46 +14,55 @@ import com.eatsaround.dao.AdminDAO;
 import com.eatsaround.vo.MemberVO;
 
 @Repository
-public class AdminDAOImpl implements AdminDAO{
-
+public class AdminDAOImpl implements AdminDAO {
     private static final Logger logger = LoggerFactory.getLogger(AdminDAOImpl.class);
     
+    // MyBatisのSqlSessionをインジェクションしてデータベース操作を行う
     @Inject
     private SqlSession sql;
-    
-    // mapper
+
+    // MyBatisのマッパーのnamespaceを設定
     private static String namespace = "com.eatsaround.EaSql.adminMapper";
 
+    // メンバーを物理削除するメソッド
+    @Override
+    public void deleteMember(String userId) throws Exception {
+        // 指定されたユーザーIDに対応するメンバーを削除するSQLを実行
+        sql.delete(namespace + ".deleteMember", userId);
+    }
 
-	@Override
-	public List<MemberVO> getMemberList() throws Exception {
-		return sql.selectList(namespace + ".getMemberList");
-	}
-	
-	@Override
-	public void deleteMember(String userId) throws Exception {
-	    sql.delete(namespace + ".deleteMember", userId);
-	}
+    // 全メンバーの総数を取得するメソッド
+    @Override
+    public int getMemberCount() throws Exception {
+        // 全メンバーの件数を取得するSQLを実行
+        return sql.selectOne(namespace + ".getMemberCount");
+    }
 
-	@Override
-	public int getMemberCount() throws Exception {
-		return sql.selectOne(namespace + ".getMemberCount");
-	}
+    // 全ブログの総数を取得するメソッド
+    @Override
+    public int getBlogCount() throws Exception {
+        // 全ブログの件数を取得するSQLを実行
+        return sql.selectOne(namespace + ".getBlogCount");
+    }
 
-	@Override
-	public int getBlogCount() throws Exception {
-		return sql.selectOne(namespace + ".getBlogCount");
-	}
-	
-	@Override
-	public List<Map<String, Object>> getLoginHistory() throws Exception {
-	    return sql.selectList(namespace + ".getLoginHistory");
-	}
+    // メンバーのログイン履歴を取得するメソッド
+    @Override
+    public List<Map<String, Object>> getLoginHistory() throws Exception {
+        // ログイン履歴を取得するSQLを実行し、リストで返す
+        return sql.selectList(namespace + ".getLoginHistory");
+    }
 
+    // メンバーをキーワードで検索するメソッド
+    @Override
+    public List<MemberVO> searchMember(String search) throws Exception {
+        // 検索キーワードに基づいてメンバーリストを取得するSQLを実行
+    	return sql.selectList(namespace + ".searchMember", search);
+    }
 
-	@Override
-	public List<MemberVO> getMemberList(String search) throws Exception {
-	    return sql.selectList(namespace + ".getMemberList", search);
-	}
-
+    // ページネーションに対応したメンバーリストを取得するメソッド
+    @Override
+    public List<MemberVO> getMemberList(Map<String, Integer> params) throws Exception {
+        // 指定されたページ範囲のメンバーリストを取得するSQLを実行
+    	return sql.selectList(namespace + ".getMemberList", params);
+    }
 }

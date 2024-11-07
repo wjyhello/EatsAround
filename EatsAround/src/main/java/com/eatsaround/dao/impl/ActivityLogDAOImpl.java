@@ -2,6 +2,7 @@ package com.eatsaround.dao.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -21,13 +22,21 @@ public class ActivityLogDAOImpl implements ActivityLogDAO {
 
     @Override
     public List<ActivityLogVO> getActivityHistory() throws Exception {
-        return sql.selectList(namespace + ".getActivityHistory"); // 統一された履歴を取得
+        return sql.selectList(namespace + ".getActivityHistory"); // 統一履歴を取得
     }
 
     @Override
-    public void activityLogVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
-        // INSERT SQLを呼び出して活動を記録する
-        sql.insert(namespace + ".activityLogVO", new ActivityLogVO(userId, activityType, activityTime));
+    public void activityLogVO(String userId, String activityType, Timestamp activityTime) throws Exception {
+        sql.insert(namespace + ".activityLogVO", new ActivityLogVO(userId, activityType, activityTime)); // 活動記録
     }
 
+    @Override
+    public List<ActivityLogVO> getActivityHistory(Map<String, Object> params) throws Exception {
+        return sql.selectList(namespace + ".getActivityHistory", params); // 検索・ページネーション付き
+    }
+
+    @Override
+    public int getActivityHistoryCount(Map<String, Object> params) throws Exception {
+        return sql.selectOne(namespace + ".getActivityHistoryCount", params); // 件数取得
+    }
 }

@@ -2,24 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eatsaround.EaSql.activityLogMapper">
 
-    <!-- 結果マップの定義。SQLクエリの結果をJavaオブジェクトにマッピング -->
+    <!-- ActivityLogVO用のマッピング設定。データベースの列とオブジェクトのプロパティを関連付け -->
     <resultMap id="ActivityLogResultMap" type="com.eatsaround.vo.ActivityLogVO">
-        <result property="userId" column="USERID"/> <!-- USERIDカラムをuserIdプロパティにマッピング -->
-        <result property="activityType" column="ACTIVITY_TYPE"/> <!-- ACTIVITY_TYPEカラムをactivityTypeプロパティにマッピング -->
-        <result property="activityTime" column="ACTIVITY_TIME"/> <!-- ACTIVITY_TIMEカラムをactivityTimeプロパティにマッピング -->
+        <result property="userId" column="USERID"/> 
+        <result property="activityType" column="ACTIVITY_TYPE"/>
+        <result property="activityTime" column="ACTIVITY_TIME"/>
     </resultMap>
 
-    <!-- 統一された履歴を取得するためのSELECT文 -->
-    <select id="getActivityHistory" resultMap="ActivityLogResultMap">
-        SELECT USERID, ACTIVITY_TYPE, ACTIVITY_TIME
-        FROM ACTIVITY_LOG
-        ORDER BY ACTIVITY_TIME DESC
-    </select>
-    
-    <!-- アクティビティを挿入するためのINSERT文 -->
+    <!-- アクティビティ履歴を取得するSQLクエリ -->
+	<select id="getActivityHistory" resultType="com.eatsaround.vo.ActivityLogVO">
+	
+	    SELECT USERID, ACTIVITY_TYPE, ACTIVITY_TIME
+	    FROM (
+	        SELECT USERID, ACTIVITY_TYPE, ACTIVITY_TIME,
+	               ROW_NUMBER() OVER (ORDER BY ACTIVITY_TIME DESC) AS rn
+	        FROM ACTIVITY_LOG
+	        <if test="search != null">
+	            WHERE USERID LIKE #{search} OR ACTIVITY_TYPE LIKE #{search}
+	        </if>
+	    )
+	    WHERE rn BETWEEN #{start} + 1 AND #{start} + #{pageSize}
+	
+	</select>
+
+    <!-- アクティビティログを挿入するSQLクエリ -->
     <insert id="activityLogVO" parameterType="com.eatsaround.vo.ActivityLogVO">
+        <![CDATA[
         INSERT INTO ACTIVITY_LOG (USERID, ACTIVITY_TYPE, ACTIVITY_TIME)
-        VALUES (#{userId}, #{activityType}, #{activityTime}) <!-- ActivityLogVOからプロパティを取得 -->
+        VALUES (#{userId}, #{activityType}, #{activityTime})
+        ]]>
     </insert>
+
+	<!-- アクティビティ履歴の件数を取得 -->
+    <select id="getActivityHistoryCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM ACTIVITY_LOG
+        ]]>
+    </select>
 
 </mapper>

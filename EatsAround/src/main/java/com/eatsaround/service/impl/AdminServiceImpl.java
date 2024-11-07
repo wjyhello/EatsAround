@@ -13,42 +13,44 @@ import com.eatsaround.vo.MemberVO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
-
-	@Inject
-	private AdminDAO dao;
-
-	// 退会処理
-	@Override
-	public void deleteMember(String userId) throws Exception {
-		dao.deleteMember(userId);
-	}
-
-	// メンバーリスト取得
-	@Override
-	public List<MemberVO> memberList() throws Exception {
-		return dao.getMemberList();
-	}
-
-	//会員数の取得
-	@Override
-	public int getMemberCount() throws Exception {
-		return dao.getMemberCount();
-	}
-
-	@Override
-	public int getBlogCount() throws Exception {
-		return dao.getBlogCount();
-	}
 	
-	@Override
-	public List<Map<String, Object>> getLoginHistory() throws Exception {
-	    return dao.getLoginHistory();
-	}
-	
-	@Override
-	public List<MemberVO> memberList(String search) throws Exception {
-	    return dao.getMemberList(search);
-	}
+    // AdminDAOをインジェクションし、データベース操作を委譲
+    @Inject
+    private AdminDAO dao;
 
+    // メンバーを物理削除するサービスメソッド
+    @Override
+    public void deleteMember(String userId) throws Exception {
+        dao.deleteMember(userId);
+    }
 
+    // 全メンバー数を取得するサービスメソッド
+    @Override
+    public int getMemberCount() throws Exception {
+        return dao.getMemberCount();
+    }
+
+    // 全ブログ数を取得するサービスメソッド
+    @Override
+    public int getBlogCount() throws Exception {
+        return dao.getBlogCount();
+    }
+
+    // メンバーのログイン履歴を取得するサービスメソッド
+    @Override
+    public List<Map<String, Object>> getLoginHistory() throws Exception {
+        return dao.getLoginHistory();
+    }
+
+    // 検索キーワードに基づくメンバーリストを取得するサービスメソッド
+    @Override
+    public List<MemberVO> searchMember(String search) throws Exception {
+        return dao.searchMember(search);
+    }
+
+    // ページネーションに対応したメンバーリストを取得するサービスメソッド
+    @Override
+    public List<MemberVO> getMemberList(Map<String, Integer> params) throws Exception {
+        return dao.getMemberList(params);
+    }
 }

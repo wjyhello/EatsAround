@@ -2,21 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eatsaround.EaSql.adminMapper">
 
-    <!-- 会員リストを取得 -->
-<select id="getMemberList" resultType="com.eatsaround.vo.MemberVO">
-    SELECT userId, userName, userEmail, userPhone, regDate
-    FROM ea_member
-    <if test="search != null and search != ''">
-        WHERE userName LIKE CONCAT('%', #{search}, '%') OR userEmail LIKE CONCAT('%', #{search}, '%')
-    </if>
-    ORDER BY userName ASC
+    <!-- 会員リストを取得 (ページネーション対応) -->
+<select id="getMemberList" parameterType="HashMap" resultType="com.eatsaround.vo.MemberVO">
+    <![CDATA[
+    SELECT * FROM (
+        SELECT userId, userName, userEmail, userPhone, regDate,
+               ROW_NUMBER() OVER (ORDER BY userName ASC) AS rn
+        FROM ea_member
+    ) WHERE rn BETWEEN #{start} + 1 AND #{start} + #{pageSize}
+    ]]>
 </select>
 
+    <!-- 会員リストを検索 -->
+    <select id="searchMember" parameterType="string" resultType="com.eatsaround.vo.MemberVO">
+        <![CDATA[
+        SELECT *
+        FROM EA_MEMBER
+        WHERE USERNAME LIKE '%' || #{search} || '%' OR
+              USEREMAIL LIKE '%' || #{search} || '%' OR
+              USERPHONE LIKE '%' || #{search} || '%' 
+        ORDER BY userName ASC
+        ]]>
+    </select>
 
     <!-- 会員数を取得 -->
-    <select id="getMemberCount" resultType="int">
-        SELECT COUNT(*) FROM ea_member
-    </select>
+<select id="getMemberCount" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) FROM ea_member
+    ]]>
+</select>
+
 
     <!-- 会員削除 -->
     <delete id="deleteMember">
@@ -27,15 +42,20 @@
 
     <!-- 掲示板数を取得 -->
     <select id="getBlogCount" resultType="int">
+        <![CDATA[
         SELECT COUNT(*) FROM TB_BLG_CONT
+        ]]>
     </select>
 
     <!-- ログイン履歴を取得 -->
     <select id="getLoginHistory" resultType="com.eatsaround.vo.ActivityLogVO">
-        SELECT userId AS userId, activity_type AS activityType, activity_time AS activityTime
-        FROM ACTIVITY_LOG
-        WHERE activity_type = 'login'
-        ORDER BY activity_time DESC
+    <![CDATA[
+    SELECT userId AS userId, activity_type AS activityType,
+           activity_time AS activityTime
+    FROM ACTIVITY_LOG
+    WHERE activity_type IN ('login', 'logout', 'sign_up')
+    ORDER BY activity_time DESC
+    ]]>
     </select>
-    
+
 </mapper>
