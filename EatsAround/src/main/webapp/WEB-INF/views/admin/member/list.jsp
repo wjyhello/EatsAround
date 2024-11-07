@@ -1,89 +1,113 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/include/header.jsp" flush="false" />
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<jsp:include page="/WEB-INF/views/include/header.jsp" flush="false" />
 
 <div class="container-fluid">
-    <div class="row">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="py-3">
+				<h4 class="text-center">관리자 메뉴</h4>
+				<jsp:include page="/WEB-INF/views/admin/include/adminPage.jsp"
+					flush="false" />
+			</div>
+		</div>
 
-        <div class="col-md-2">
-            <div class="py-3">
-                <h4 class="text-center">管理者メニュー</h4>
-                <jsp:include page="/WEB-INF/views/admin/include/adminPage.jsp" flush="false" />
-            </div>
-        </div>
+		<div class="col-md-10">
+			<div class="container my-4">
+				<h2>회원 리스트</h2>
 
-        <div class="col-md-10">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 my-4">
-                        <c:if test="${not empty alertMessage}">
-                            <script>
-                                alert('${alertMessage}');
-                            </script>
-                        </c:if>
+				<!-- 검색 폼 -->
+				<form action="/admin/member/list" method="get" class="mb-3">
+					<div class="input-group">
+						<input type="text" name="search" class="form-control"
+							placeholder="검색" value="${param.search}" />
+						<button type="submit" class="btn btn-primary">검색</button>
+					</div>
+				</form>
 
-                        <c:if test="${not empty alertAdminMessage}">
-                            <div class="alert alert-danger" role="alert">
-                                ${alertAdminMessage}
-                            </div>
-                        </c:if>
+				<!-- 회원 리스트 테이블 -->
+				<table class="table table-striped table-bordered">
+					<thead class="thead-dark">
+						<tr>
+							<th>Username</th>
+							<th>Email</th>
+							<th>Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="member" items="${memberList}">
+							<tr>
+								<td>${member.userName}</td>
+								<td>${member.userEmail}</td>
+								<td><fmt:formatDate value="${member.regDate}"
+										pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								<td>
+									<form
+										action="${pageContext.request.contextPath}/admin/member/delete"
+										method="post">
+										<input type="hidden" name="userId" value="${member.userId}" />
+										<button type="submit" class="btn btn-danger btn-sm">삭제</button>
+									</form>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
-                        <h2 class="mb-0">회원 리스트</h2>
+				<!-- 페이징 처리 -->
+				<c:if test="${not empty memberList}">
+					<div class="d-flex justify-content-center align-items-center my-4">
+						<div>
+							<!-- 이전 페이지 버튼 -->
+							<c:if test="${currentPage > 1}">
+								<form
+									action="${pageContext.request.contextPath}/admin/member/list"
+									method="get" style="display: inline;">
+									<input type="hidden" name="currentPage"
+										value="${currentPage - 1}" /> <input type="hidden"
+										name="search" value="${param.search}" /> <input type="hidden"
+										name="pageSize" value="${pageSize}" />
+									<button type="submit" class="btn btn-secondary">이전</button>
+								</form>
+							</c:if>
 
-                        <form action="${path}/admin/member/search" method="get" class="mb-3">
-                            <div class="input-group">
-                                <input type="text" name="searchQuery" class="form-control" placeholder="ユーザー名で検索" />
-                                <button type="submit" class="btn btn-primary">検索</button>
-                            </div>
-                        </form>
+							<!-- 페이지 번호 -->
+							<c:forEach var="i" begin="1" end="${totalPages}">
+								<c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
+									<form
+										action="${pageContext.request.contextPath}/admin/member/list"
+										method="get" style="display: inline;">
+										<input type="hidden" name="currentPage" value="${i}" /> <input
+											type="hidden" name="search" value="${param.search}" /> <input
+											type="hidden" name="pageSize" value="${pageSize}" />
+										<button type="submit"
+											class="btn ${i == currentPage ? 'btn-primary' : 'btn-outline-primary'}">${i}</button>
+									</form>
+								</c:if>
+							</c:forEach>
 
-                        <div class="card-body">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>NAME</th>
-                                        <th>E-mail</th>
-                                        <th>Phone</th>
-                                        <th>regDate</th>
-                                        <th>DELETE</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:if test="${not empty memberList}">
-                                        <c:forEach var="member" items="${memberList}">
-                                            <tr>
-                                                <td>${member.userId}</td>
-                                                <td>${member.userName}</td>
-                                                <td>${member.userEmail}</td>
-                                                <td>${member.userPhone}</td>
-                                                <td><fmt:formatDate value="${member.regDate}" pattern="yyyy-MM-dd" /></td>
-                                                <td>
-                                                    <form action="${path}/admin/member/delete" method="post"
-                                                          onsubmit="return confirm('삭제합니까?');">
-                                                        <input type="hidden" name="userId" value="${member.userId}" />
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            <i class="fas fa-trash-alt"></i> 삭제
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </c:if>
-                                    <c:if test="${empty memberList}">
-                                        <tr>
-                                            <td colspan="6" class="text-center">メンバーが見つかりませんでした。</td>
-                                        </tr>
-                                    </c:if>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							<!-- 다음 페이지 버튼 -->
+							<c:if test="${currentPage < totalPages}">
+								<form
+									action="${pageContext.request.contextPath}/admin/member/list"
+									method="get" style="display: inline;">
+									<input type="hidden" name="currentPage"
+										value="${currentPage + 1}" /> <input type="hidden"
+										name="search" value="${param.search}" /> <input type="hidden"
+										name="pageSize" value="${pageSize}" />
+									<button type="submit" class="btn btn-secondary">다음</button>
+								</form>
+							</c:if>
+						</div>
+					</div>
+				</c:if>
+			</div>
+		</div>
+	</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" flush="false" />

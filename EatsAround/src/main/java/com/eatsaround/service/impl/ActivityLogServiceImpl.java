@@ -2,6 +2,7 @@ package com.eatsaround.service.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,12 +20,21 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     @Override
     public List<ActivityLogVO> getActivityHistory() throws Exception {
-        return dao.getActivityHistory(); // 統一された履歴を取得
+        return dao.getActivityHistory(); // 統一履歴を取得
     }
 
     @Override
-    public void activityLogVO(String userId, String activityType, Timestamp activityTime) throws Exception { // 追加
-        dao.activityLogVO(userId, activityType, activityTime);
+    public void activityLogVO(String userId, String activityType, Timestamp activityTime) throws Exception {
+        dao.activityLogVO(userId, activityType, activityTime); // 活動記録
     }
 
+    @Override
+    public List<ActivityLogVO> getActivityHistory(Map<String, Object> params) throws Exception {
+        return dao.getActivityHistory(params); // 検索・ページネーション付き
+    }
+
+    @Override
+    public int getActivityHistoryCount(Map<String, Object> params) throws Exception {
+        return dao.getActivityHistoryCount(params); // 件数取得
+    }
 }
